@@ -1,4 +1,4 @@
-print('\nYou are about to define a year as a century!')
+print('\nYou are about to define "year" as a "century"!')
 print('You can enter a year between 1 and 2021')
 year = int(input('.\nPlease enter the year: '))
 
@@ -7,13 +7,18 @@ if year % 100 > 0:
 else:
     century = year // 100
 
-if century == 1 or century == 21:
-    suffix = 'st'
-elif century == 2:
-    suffix = 'nd'
-elif century == 3:
-    suffix = 'rd'
-else:
-    suffix = 'th'
+if 0 < year < 2022:
 
-print(f'Year {year} is the {century}{suffix} century.\n')
+    if 3 < century < 21:
+        suffix = 'th'
+    elif century == 1 or century == 21:
+        suffix = 'st'
+    elif century == 2:
+        suffix = 'nd'
+    else:
+        suffix = 'rd'
+
+    print(f'-ANSWER-\nYear {year} is the {century}{suffix} century.\n')
+
+else:
+    print('-ANSWER-\nThe year entered is out of range (1-2021)\n')
