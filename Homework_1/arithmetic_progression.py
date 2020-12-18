@@ -6,5 +6,5 @@ N = int(input('\nWhich member of this progression would you like to see?\nPlease
 step = n2 - n1
 nN = n1 + (N - 1) * step
 
-print('The N-th member of this progression is:')
+print('\n-Answer-\nThe N-th member of this progression is:')
 print(f'[{N}] = {nN}\n')
