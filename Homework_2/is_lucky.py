@@ -1,4 +1,5 @@
 print('is_lucky.py')
+
 lucky_num = input('Enter the number: ')
 
 first_sum = 0
@@ -11,7 +12,5 @@ for i in range(len(lucky_num)):
     else:
         second_sum += int(lucky_num[i])
 
-if first_sum == second_sum:
+if first_sum == second_sum or print('No'):
     print('Yes')
-else:
-    print('No')
