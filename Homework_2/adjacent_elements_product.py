@@ -6,30 +6,43 @@ This program will return the biggest product of
 the adjacent elements from the entered sequence
 ''')
 
+# մուտքագրելուց ցուցադրվող տեքստը
+enter = 'numbers separated with spaces, or "q" to quit: \n'
+
 # տվյալների մուտքագրում
-numbers = [int(num) for num in input('Please enter the numbers separated with spaces: \n').split()]
+# ակնկալում ենք բացատներով առանձնացված թվեր կամ «q»՝ ծրագրից դուրս գալու համար
+numbers = input(f'Please enter the {enter}')
 
-# ենթադրում ենք, որ առաջին երկու անդամի արտադրյալը ամենամեծն է
-max_product = numbers[0] * numbers[1]
-n1 = [numbers[0], 1]
-n2 = [numbers[1], 2]
+# ստուգում ենք արդյոք «q» է մուտքագրվել, թե՝ ոչ
+while numbers != 'q':
 
-# ստուգում ենք՝ արդյոք կա ավելի մեծ արտադրյալով իրար կողք գտնվող երկու էլեմենտ
-for i in range(1, len(numbers) - 1):
+    # մուտքագրված թվերը str տիպից դարձնում ենք int-եր պարունակող list
+    numbers = [int(num) for num in numbers.split()]
 
-    product = numbers[i] * numbers[i+1]
-    if product > max_product:
-        max_product = product
+    # ենթադրում ենք, որ առաջին երկու անդամի արտադրյալը ամենամեծն է
+    max_product = numbers[0] * numbers[1]
+    n1 = [numbers[0], 1]
+    n2 = [numbers[1], 2]
 
-        # հիշում ենք տվյալ թվերը և դրանց տեղը շարքում
-        n1 = [numbers[i], i+1]
-        n2 = [numbers[i+1], i+2]
+    # ստուգում ենք՝ արդյոք կա ավելի մեծ արտադրյալով իրար կողք գտնվող երկու էլեմենտ
+    for i in range(1, len(numbers) - 1):
 
-# տպում ենք արդյունքը
-print(f'''
--ANSWER-
-The biggest product is: {max_product}
+        product = numbers[i] * numbers[i+1]
+        if product > max_product:
+            max_product = product
 
-it's the product of {n1[0]} and {n2[0]}
-which are on positions [{n1[1]}] and [{n2[1]}]
-''')
+            # հիշում ենք տվյալ թվերը և դրանց տեղը շարքում
+            n1 = [numbers[i], i+1]
+            n2 = [numbers[i+1], i+2]
+
+    # տպում ենք արդյունքը
+    print(f'''
+    -ANSWER-
+    The biggest product is: {max_product}
+    
+    it's the product of numbers {n1[0]} and {n2[0]}
+    which are on positions [{n1[1]}] and [{n2[1]}]
+    ''')
+
+    # եթե օգտվողը ուզենա, կարող է նոր թվեր մուտքագրել կամ «q»` ծրագրից դուրս գալու համար
+    numbers = input(f'If you want to try again, enter new {enter}')
