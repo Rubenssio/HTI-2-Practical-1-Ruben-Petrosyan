@@ -1,8 +1,13 @@
 # վերնագիր
-print('is_lucky.py')
+print('''
+--- IS LUCKY ---
+This program will check whether the entered number is LUCKY
+(whether the sum of the first half digits of the number
+ is equal to the sum of the digits of the second half)
+''')
 
 # տվյալի մուտքագրում
-lucky_num = input('Enter the number: ')
+lucky_num = input('Please enter a number with even number of digits: \n')
 
 # հայտարարում ենք փոփոխականները
 first_sum = 0
@@ -19,6 +24,6 @@ for i in range(len(lucky_num)):
 
 # արդյյունքի ստուգում և տպում
 if first_sum == second_sum:
-    print('Yes')
+    print(f'\nYES! The number {lucky_num} is LUCKY\n')
 else:
-    print('No')
+    print(f'\nNo, the number {lucky_num} is NOT LUCKY\n')
