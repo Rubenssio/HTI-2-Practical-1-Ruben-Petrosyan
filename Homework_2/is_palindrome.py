@@ -6,7 +6,10 @@ text is a palindrome or not
 ''')
 
 # տվյալի մուտքագրում
-string = input('Enter text to check, or "-1" to exit the program: \n')
+string = input('Enter a text to check, or "-1" to exit the program: \n')
+
+# որ տեսնենք քանի անգամ ենք կոդը աշխատացրել
+answer_counter = 0
 
 # ծրագիրը աշխատացնում ենք քանի դեռ «-1» չի մուտքագրվել
 while string != "-1":
@@ -21,7 +24,8 @@ while string != "-1":
             break
 
     # տպում ենք արդյունքը
-    print(f'\n-ANSWER-\n{is_palindrome}\n')
+    answer_counter += 1
+    print(f'\n-ANSWER N{answer_counter}-\n{is_palindrome}\n')
 
     # օգտատերին հնարավորություն ենք տալիս նոր տեքստ մուտքագրել ստուգելու համար
-    string = input('If you want to try again enter new text to check, or "-1" to exit the program: \n')
+    string = input('If you want to try again enter a new text to check, or "-1" to exit the program: \n')
