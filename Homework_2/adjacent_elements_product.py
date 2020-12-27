@@ -3,7 +3,7 @@ print('''
 
 --- ADJACENT ELEMENTS PRODUCT ---
 This program will return the biggest product of
-the adjacent elements from the entered sequence
+two adjacent elements from the entered sequence
 ''')
 
 # որ տեսնենք քանի անգամ ենք կոդը աշխատացրել
@@ -36,17 +36,18 @@ while N != 'q':
         if P(N[i], N[i + 1]) > MP:
             MP = P(N[i], N[i + 1])
 
-            # հիշում ենք տվյալ թվերը և դրանց տեղը շարքում
+            # հիշում ենք տվյալ թվի տեղը շարքում
             s = i
 
     # տպում ենք արդյունքը
     answer_counter += 1
+
     print(f'''
     -ANSWER N{answer_counter}-
     The biggest product is: {MP}
     
-    it's the product of numbers {N[s]} and {N[s + 1]}
-    which are on positions [{s + 1}] and [{s + 2}]
+    *The product of: {N[s]} and {N[s + 1]}
+    *At positions: [{s + 1}] and [{s + 2}]
     ''')
 
     # եթե օգտատերը ուզենա, կարող է նոր թվեր մուտքագրել կամ սեղմել «q»` ծրագրից դուրս գալու համար
