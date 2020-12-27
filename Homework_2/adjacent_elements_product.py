@@ -16,6 +16,9 @@ enter = 'numbers separated with spaces, or "q" to quit: \n'
 # ակնկալում ենք բացատներով առանձնացված թվեր կամ «q»՝ ծրագրից դուրս գալու համար
 N = input(f'Please enter the {enter}')
 
+# երկու թվի արտադրյալ հաշվելու համար։ P-ն product բառից
+P = lambda x, y: x * y
+
 # ստուգում ենք արդյոք «q» է մուտքագրվել, թե՝ ոչ
 while N != 'q':
 
@@ -30,9 +33,8 @@ while N != 'q':
     # ստուգում ենք՝ արդյոք կա ավելի մեծ արտադրյալով իրար կողք գտնվող երկու էլեմենտ
     for i in range(1, len(N) - 1):
 
-        product = N[i] * N[i + 1]
-        if product > max_product:
-            max_product = product
+        if P(N[i],N[i + 1]) > max_product:
+            max_product = P(N[i],N[i + 1])
 
             # հիշում ենք տվյալ թվերը և դրանց տեղը շարքում
             n1 = [N[i], i + 1]
