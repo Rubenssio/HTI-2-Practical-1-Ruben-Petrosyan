@@ -6,6 +6,9 @@ This program will return the biggest product of
 the adjacent elements from the entered sequence
 ''')
 
+# որ տեսնենք քանի անգամ ենք կոդը աշխատացրել
+answer_counter = 0
+
 # մուտքագրելուց ցուցադրվող տեքստը
 enter = 'numbers separated with spaces, or "q" to quit: \n'
 
@@ -36,13 +39,14 @@ while numbers != 'q':
             n2 = [numbers[i+1], i+2]
 
     # տպում ենք արդյունքը
+    answer_counter += 1
     print(f'''
-    -ANSWER-
+    -ANSWER N{answer_counter}-
     The biggest product is: {max_product}
     
     it's the product of numbers {n1[0]} and {n2[0]}
     which are on positions [{n1[1]}] and [{n2[1]}]
     ''')
 
-    # եթե օգտվողը ուզենա, կարող է նոր թվեր մուտքագրել կամ «q»` ծրագրից դուրս գալու համար
+    # եթե օգտատերը ուզենա, կարող է նոր թվեր մուտքագրել կամ սեղմել «q»` ծրագրից դուրս գալու համար
     numbers = input(f'If you want to try again, enter new {enter}')
