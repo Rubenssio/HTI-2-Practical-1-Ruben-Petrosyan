@@ -30,13 +30,13 @@ while numbers != 'q':
     # ստուգում ենք՝ արդյոք կա ավելի մեծ արտադրյալով իրար կողք գտնվող երկու էլեմենտ
     for i in range(1, len(numbers) - 1):
 
-        product = numbers[i] * numbers[i+1]
+        product = numbers[i] * numbers[i + 1]
         if product > max_product:
             max_product = product
 
             # հիշում ենք տվյալ թվերը և դրանց տեղը շարքում
-            n1 = [numbers[i], i+1]
-            n2 = [numbers[i+1], i+2]
+            n1 = [numbers[i], i + 1]
+            n2 = [numbers[i + 1], i + 2]
 
     # տպում ենք արդյունքը
     answer_counter += 1
