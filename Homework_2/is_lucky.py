@@ -2,7 +2,7 @@
 print('''
 
 --- IS LUCKY ---
-This program will check whether the entered number is LUCKY
+This program will check whether the entered number is LUCKY!
 (whether the sum of the digits in the first half of the number
  is equal to the sum of the digits in the second half)
 ''')
@@ -31,9 +31,11 @@ while lucky_num != 'q':
     # արդյյունքի ստուգում և տպում
     answer_counter += 1
     print(f'\n    -ANSWER N{answer_counter}-')
+
     if first_sum == second_sum:
         print(f'    YES! The number {lucky_num} is LUCKY\n')
     else:
         print(f'    No, the number {lucky_num} is NOT LUCKY\n')
 
+    # օգտագերին հնարավորություն ենք տալիս նոր թիվ մուտքագրել ստուգելու համար
     lucky_num = input('If you want to try again, enter a new number with even number of digits, or "q" to quit: \n')
