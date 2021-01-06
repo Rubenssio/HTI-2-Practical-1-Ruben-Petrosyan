@@ -28,4 +28,7 @@ while string != "-1":
     print(f'\n-ANSWER N{answer_counter}-\n{is_palindrome}\n')
 
     # օգտատերին հնարավորություն ենք տալիս նոր տեքստ մուտքագրել ստուգելու համար
-    string = input('If you want to try again enter a new text to check, or "-1" to exit the program: \n')
+    string = input('If you want to try again enter a new text, or "-1" to exit the program: \n')
+
+# Goodbye note
+print('Thanks for using our program!')

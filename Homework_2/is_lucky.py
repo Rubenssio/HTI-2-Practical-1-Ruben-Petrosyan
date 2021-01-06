@@ -22,7 +22,7 @@ while lucky_num != 'q':
     # անցնում ենք թվանշանի բոլոր նիշերով
     for i in range(len(lucky_num)):
 
-        # գտնում ենք թե թվանշանի որ կեսում է գտնվում տվյալ նիշը
+        # գտնում ենք թե թվանշանի որ կեսում է գտնվում տվյալ նիշը և հաշվում գումարը
         if i < len(lucky_num) / 2:
             first_sum += int(lucky_num[i])  # ավելացնում ենք առաջին կեսի գումարին
         else:
@@ -39,3 +39,6 @@ while lucky_num != 'q':
 
     # օգտագերին հնարավորություն ենք տալիս նոր թիվ մուտքագրել ստուգելու համար
     lucky_num = input('If you want to try again, enter a new number with even number of digits, or "q" to quit: \n')
+
+# Goodbye note
+print('Thanks for using our program!')
