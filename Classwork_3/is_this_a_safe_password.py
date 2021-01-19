@@ -11,14 +11,14 @@ def is_password_safe(password):
 
     for i in password:
 
-        if is_in(i, up):
-            up1 += 1
-        if is_in(i, low):
-            low1 += 1
-        if is_in(i, num):
-            num1 += 1
-        if is_in(i, sym):
-            sym1 += 1
+        if not up1:
+            up1 = is_in(i, up)
+        if not low1:
+            low1 = is_in(i, up)
+        if not num1:
+            num1 = is_in(i, num)
+        if not sym1:
+            sym1 = is_in(i, sym)
 
     if 6 <= len(password) <= 16:
         ln1 = True
