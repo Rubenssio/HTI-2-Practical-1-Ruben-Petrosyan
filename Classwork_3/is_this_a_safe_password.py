@@ -6,19 +6,14 @@ def is_in(text, symbols):
 
 
 def is_password_safe(password):
-    up = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    low = 'abcdefghijklmnopqrstuvwxyz'
-    num = '0123456789'
-    sym = '$#@'
+    symbols_list = [
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        'abcdefghijklmnopqrstuvwxyz',
+        '0123456789', '$#@']
 
-    if not is_in(password, up):
-        return False
-    if not is_in(password, low):
-        return False
-    if not is_in(password, num):
-        return False
-    if not is_in(password, sym):
-        return False
+    for symbols in symbols_list:
+        if not is_in(password, symbols):
+            return False
 
     if 6 <= len(password) <= 16:
         return True
