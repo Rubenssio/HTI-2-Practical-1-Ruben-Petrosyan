@@ -1,10 +1,24 @@
 def draw_arrow(n, symbol='*'):
-    for i in range(1, n + 1):
-        print(f'{symbol} ' * i)
-    for i in range(1, n):
-        print(f'{symbol} ' * (n - i))
 
-    # another solution
+    # solution N3
+    increment = 1
+    times = 1
+    i = 1
+    while i != 0:
+        print(f'{symbol} ' * i)
+
+        if i == n:
+            increment = -1
+
+        i += increment
+
+    # solution N1
+    # for i in range(1, n + 1):
+    #     print(f'{symbol} ' * i)
+    # for i in range(1, n):
+    #     print(f'{symbol} ' * (n - i))
+
+    # solution N2
     # for i in range(n * 2 - 1):
     #     if i < n:
     #         print(f'{symbol} ' * (i + 1))
