@@ -1,9 +1,8 @@
-# այս պահի դրությամբ այս տնայինը դեռ չի հանձնարարվել, բայց արդեն հասանելի է Google Drive-ում
-
 def factorial(number):
-    fact = 1
-    for i in range(1, number + 1):
-        fact *= i
+    if number == 0 or number == 1:
+        fact = 1
+    else:
+        fact = number * factorial(number - 1)
 
     return fact
 
