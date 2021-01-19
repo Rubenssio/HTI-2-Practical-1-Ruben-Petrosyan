@@ -4,6 +4,17 @@ def has_only_even_digit(num):
             return False
     return True
 
+    # Classroom version
+    # while num != 0:
+    #     digit = num % 10
+    #
+    #     if digit % 2 == 0:
+    #         return False
+    #
+    #     num = num // 10
+    #
+    # return True
+
 
 def even_digit_range(start, stop):
     result = []
