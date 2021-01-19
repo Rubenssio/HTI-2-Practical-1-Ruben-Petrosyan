@@ -1,16 +1,21 @@
-def draw_arrow(n):
+def draw_arrow(n, symbol='*'):
     for i in range(1, n + 1):
-        print('* ' * i)
+        print(f'{symbol} ' * i)
     for i in range(1, n):
-        print('* ' * (n - i))
+        print(f'{symbol} ' * (n - i))
 
+    # another solution
     # for i in range(n * 2 - 1):
     #     if i < n:
-    #         print('* ' * (i + 1))
+    #         print(f'{symbol} ' * (i + 1))
     #     else:
-    #         print('* ' * (n * 2 - i - 1))
+    #         print(f'{symbol} ' * (n * 2 - i - 1))
 
 
 num = int(input('enter a positive number: '))
+symbol = input('enter the symbol or press enter to use the default: ')
 
-draw_arrow(num)
+if symbol == '':
+    draw_arrow(num)
+else:
+    draw_arrow(num, symbol)
