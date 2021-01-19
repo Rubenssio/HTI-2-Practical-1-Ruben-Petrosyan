@@ -6,15 +6,14 @@ def is_in(text, symbols):
 
 
 def is_password_safe(password):
-    up, up1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 0
-    low, low1 = 'abcdefghijklmnopqrstuvwxyz', 0
-    num, num1 = '0123456789', 0
-    sym, sym1 = '$#@', 0
-    ln1 = False
+    up = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    low = 'abcdefghijklmnopqrstuvwxyz'
+    num = '0123456789'
+    sym = '$#@'
 
     if not is_in(password, up):
         return False
-    if not is_in(password, up):
+    if not is_in(password, low):
         return False
     if not is_in(password, num):
         return False
