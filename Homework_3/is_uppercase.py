@@ -1,8 +1,12 @@
-# այս պահի դրությամբ այս տնայինը դեռ չի հանձնարարվել, բայց արդեն հասանելի է Google Drive-ում
-
 def is_uppercase(text):
+    """Checks whether the every letter in the given text is uppercase
+    and returns 'Yes' or 'No' accordingly:
+        'Yes' - if every letter IS uppercase,
+        'No'  - if every letter IS NOT uppercase"""
+
     if text.isupper():
         return 'Yes'
     return 'No'
 
-print(is_uppercase((input("Enter the text: "))))
+
+print(is_uppercase(input("Enter the text: ")))
