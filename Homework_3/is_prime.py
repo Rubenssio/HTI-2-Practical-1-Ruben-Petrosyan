@@ -10,7 +10,12 @@ def is_prime(num):
     return 'Yes'
 
 
-print(is_prime(int(input("Enter the number: "))))
+num = int(input("Enter the number: "))
+
+if is_prime(num):
+    print('Yes')
+else:
+    print('No')
 
 """
 Wikipedia-ում պարզ թիվ ստուգելու Python կոդի շատ հետաքրքիր տարբերակ կա,
