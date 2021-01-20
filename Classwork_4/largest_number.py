@@ -3,12 +3,15 @@ def largest_number(number):
     number //= 10
     while number != 0:
         if num > number % 10:
-            return 'Yes'
+            return True
         num = number % 10
         number //= 10
 
-    return 'No'
+    return False
 
 number = int(input('Enter number: '))
 
-print(largest_number(number))
+if largest_number(number):
+    print('Yes')
+else:
+    print('No')
