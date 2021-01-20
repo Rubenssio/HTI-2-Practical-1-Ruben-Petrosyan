@@ -1,7 +1,6 @@
 def draw_arrow(n, *, symbol='*', direction='right'):
 
     if direction == 'right' or 'left':
-        # solution N3
         increment = 1
         i = 1
         while i != 0:
@@ -15,14 +14,15 @@ def draw_arrow(n, *, symbol='*', direction='right'):
 
             i += increment
 
-    if direction == 'up':
-        print('\nThe "up" direction is not supported yet')
+    if direction == 'up' or 'down':
+        for i in range(n):
+            if direction == 'up':
+                print((n - i - 1) * '  ' + (2 * i + 1) * f' {symbol}')
+            if direction == 'down':
+                print(i * '  ' + (2 * (n - i) - 1) * f' {symbol}')
 
-    if direction == 'down':
-        print(('\nThe "down" direction is not supported yet'))
 
-
-num = int(input('enter a positive number: '))
+num = int(input('enter the lenght of the arrow: '))
 symb = input('enter the symbol or press "Enter" to use the default: ')
 dir = input('enter "right", "left", "up" or "down" for the direction: ')
 
