@@ -11,6 +11,7 @@ def number_root(num):
     while num != 0:
         root += num % 10
         num //= 10
+
     return number_root(root)
 
 
