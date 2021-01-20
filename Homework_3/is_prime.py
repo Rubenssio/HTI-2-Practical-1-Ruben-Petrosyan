@@ -4,10 +4,16 @@ def is_prime(num):
         'Yes' - if the given number IS prime,
         'No'  - if the given number IS NOT prime"""
 
-    for i in range(2, num//2 + 1):
+    if num == 2:
+        return True
+
+    if num % 2 == 0:
+        return False
+
+    for i in range(3, num//2 + 1, 2):
         if num % i == 0:
-            return 'No'
-    return 'Yes'
+            return False
+    return True
 
 
 num = int(input("Enter the number: "))
