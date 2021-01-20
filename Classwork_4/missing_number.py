@@ -1,10 +1,9 @@
 def missing_number(numbers):
-    biggest = max(numbers)
-    smallest = min(numbers)
 
-    for el in range(smallest, biggest):
+    for el in range(1, len(numbers) + 2):
         if el not in numbers:
             return el
+
 
 num = [int(n) for n in input("Enter the numbers: ").split()]
 
