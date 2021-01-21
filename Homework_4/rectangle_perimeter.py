@@ -14,9 +14,9 @@ def rectangle_perimeter(points1):
     return perimeter
 
 
+nums = [float(n) for n in input('Enter coordinates x1 y1 x2 y2 x3 y3 x4 y4: ').split()]
 coordinates = []
-for i in range(4):
-    point_x_y = tuple(float(n) for n in input(f'Enter coordinates of x{i + 1} and y{i + 1}: ').split())
-    coordinates.append(point_x_y)
+for i in range(len(nums)//2):
+    coordinates.append((nums[i * 2], nums[i * 2 + 1]))
 
 print(rectangle_perimeter(coordinates))
