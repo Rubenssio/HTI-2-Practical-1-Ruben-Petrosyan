@@ -7,6 +7,9 @@ Theory by: **Mary Hakobyan**
 Practice by: **Davit Tovmasyan**
 (*first practice - Dec.16.2020*)
 
+Office Hours by: **Henry Harutyunyan**
+(*first meetup - Jan.18.2021*)
+
 Այն մարդկանց, ում հասանելի է այս տեքստը, ուսուցեղական նկատառումներով նաև թույլ եմ տալիս հետևյալը՝
 օգտագործելով որպես օրինակ այս repository-ում իմ տեղադրած կոդերը,
 ցույց տալ ուրիշներին թե ինչպես է պետք գրել կոդ կամ թե ինչպես պետք չէ գրել կոդ:
