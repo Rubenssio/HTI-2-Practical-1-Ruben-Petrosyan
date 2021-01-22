@@ -1,8 +1,8 @@
 def is_prime(num):
     """Checks whether the given number is a prime number
-    and returns 'Yes' or 'No' accordingly:
-        'Yes' - if the given number IS prime,
-        'No'  - if the given number IS NOT prime"""
+    and returns True or False accordingly:
+        True  - if the given number IS prime,
+        False - if the given number IS NOT prime"""
 
     if num == 2:
         return True
