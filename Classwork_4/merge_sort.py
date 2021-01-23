@@ -17,7 +17,18 @@ def merge(l1, l2):
     return l_merged
 
 
-list1 = [int(n) for n in input('List 1: ').split()]
-list2 = [int(n) for n in input('List 2: ').split()]
+def merge_sort(numbers, start, end):
+    if start == end - 1:
+        return numbers[start:end]
 
-print(merge(list1, list2))
+    mid = (start + end) // 2
+
+    a = merge_sort(numbers, start, mid)
+    b = merge_sort(numbers, mid, end)
+
+    return merge(a, b)
+
+
+numbers = [int(n) for n in input('Numbers: ').split()]
+
+print(merge_sort(numbers, 0, len(numbers)))
