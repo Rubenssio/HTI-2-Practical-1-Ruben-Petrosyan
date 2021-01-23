@@ -12,6 +12,7 @@ def is_prime(num):
 
     for i in range(3, num//2 + 1, 2):
         if num % i == 0:
+            print(num, 'can be divided by', i, '\b, so...')
             return False
     return True
 
