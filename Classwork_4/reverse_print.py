@@ -6,4 +6,5 @@ def reverse_print(n):
     print(x)
 
 
-reverse_print(5)
+n = int(input('n = '))
+reverse_print(n)
