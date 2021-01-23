@@ -13,9 +13,7 @@ def merge(l1, l2):
             l_merge.append(l2[j])
             j += 1
 
-    l_merge.extend(l1[i:])
-
-    l_merge.extend(l2[j:])
+    l_merge.extend(l1[i:] + l2[j:])
 
     return l_merge
 
