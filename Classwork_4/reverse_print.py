@@ -1,6 +1,6 @@
 def reverse_print(n):
-    if n == 0:
-        return ""
+    if not n:
+        return
     x = int(input())
     reverse_print(n-1)
     print(x)
