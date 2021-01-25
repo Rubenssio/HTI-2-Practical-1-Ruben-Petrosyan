@@ -3,9 +3,10 @@ def fibonacci(n):
         return 1
     fib1 = 1
     fib2 = 1
-    for _ in range (n):
+    for _ in range(n):
         fib1, fib2 = fib2, fib1 + fib2
     return fib1
+
 
 num = int(input('Enter a number: '))
 print(fibonacci(num - 1))
