@@ -1,16 +1,11 @@
 def insertion_sort(nums):
     for i in range(1, len(nums)):
         val_to_ins = nums[i]
-        move = 0
         j = i
-        while j != 0:
-            if val_to_ins < nums[j - 1]:
-                nums[j] = nums[j - 1]
-                move += 1
-            else:
-                break
+        while j > 0 and val_to_ins < nums[j - 1]:
+            nums[j] = nums[j - 1]
             j -= 1
-        nums[i - move] = val_to_ins
+        nums[j] = val_to_ins
 
     return nums
 
