@@ -1,8 +1,17 @@
 def is_prime(num):
-    """Checks whether the given number is a prime number
-    and returns True or False accordingly:
+    """Gets a number and checks whether it's a prime number
+
+    Parameters
+    ----------
+    num : int
+        The number to check
+
+    Returns
+    -------
+    bool
         True  - if the given number IS prime,
-        False - if the given number IS NOT prime"""
+        False - if the given number IS NOT prime
+    """
 
     if num == 2:
         return True
@@ -17,6 +26,21 @@ def is_prime(num):
 
 
 def goldbach_s_conjecture(even_num):
+    """Gets an even number and returns a list of prime number pairs
+    where the sum of each pair is equal to the given number
+
+    Parameters
+    ----------
+    even_num : int
+        an even integer to check
+
+    Returns
+    -------
+    list
+        a list of prime number pairs where the sum
+        of each pair is equal to the given number
+    """
+
     if even_num < 3:
         return f'The number {even_num} is not bigger than 2'
 
@@ -39,24 +63,24 @@ def goldbach_s_conjecture(even_num):
     return goldbach_primes
 
 
-# THE START OF THE PROGRAM
+# THE MAIN PROGRAM
 print("""\n        ***GOLDBACH's conjecture***
 Conjecture states that every even whole number
-greater than 2 is the sum of two prime numbers
+greater than 2 is a sum of two prime numbers
 """)
 
-user_input = 'even number bigger than 2, to find which two primes makes that number\n: '
+user_input = 'even number bigger than 2 to find\nwhich two primes make up that number\n: '
 
 
-num = int(input(f'Enter an {user_input}'))
+number = int(input(f'Enter an {user_input}'))
 
-GC = goldbach_s_conjecture(num)
+GC_primes = goldbach_s_conjecture(number)
 
-if type(GC) != list:
-    print(GC)
+if type(GC_primes) != list:
+    print(GC_primes)
 else:
-    print(f"""    According to Goldbach's conjecture, number {num}
+    print(f"""    According to Goldbach's conjecture, number {number}
     can be expressed as the sum of the following numbers:
     """)
-    for el in GC:
-        print('    ', el[0], el[1])
+    for prime_pair in GC_primes:
+        print(f'{prime_pair[0]:>8} {prime_pair[1]}')
