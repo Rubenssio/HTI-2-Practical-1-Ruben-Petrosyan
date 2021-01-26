@@ -39,7 +39,7 @@ def simple_polygon_perimeter(points1):
     num_of_sides = len(points1)
 
     points2 = [points1[num_of_sides - 1], *points1[:num_of_sides - 1]]
-    # points2 consists of the same points as 'points1' but each pair is shifted one position to the left in the list
+    # points2 consists of the same points as 'points1' but each pair is shifted one position to right in the list
 
     for j in range(num_of_sides):
         perimeter += segment_length(*points1[j], *points2[j])
