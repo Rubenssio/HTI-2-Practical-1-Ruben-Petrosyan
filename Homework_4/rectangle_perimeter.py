@@ -36,7 +36,7 @@ def rectangle_perimeter(points1):
     """
 
     perimeter = 0
-    points2 = [points1[3], *points1[:3]]  # same points as in 'points1' but shifted one position to the left in the list
+    points2 = [points1[3], *points1[:3]]  # same points as in 'points1' but shifted one position to right in the list
 
     for j in range(4):
         perimeter += segment_length(*points1[j], *points2[j])
