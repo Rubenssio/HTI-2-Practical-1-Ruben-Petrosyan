@@ -22,11 +22,7 @@ def merge_sort(numbers, start, end):
         return numbers[start:end]
 
     mid = (start + end) // 2
-
-    a = merge_sort(numbers, start, mid)
-    b = merge_sort(numbers, mid, end)
-
-    return merge(a, b)
+    return merge(merge_sort(numbers, start, mid), merge_sort(numbers, mid, end))
 
 
 numbers = [int(n) for n in input('Numbers: ').split()]
