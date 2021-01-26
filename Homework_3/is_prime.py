@@ -1,8 +1,17 @@
 def is_prime(num):
-    """Checks whether the given number is a prime number
-    and returns True or False accordingly:
+    """Gets a number and checks whether it's a prime number
+
+    Parameters
+    ----------
+    num : int
+        The number to check
+
+    Returns
+    -------
+    bool
         True  - if the given number IS prime,
-        False - if the given number IS NOT prime"""
+        False - if the given number IS NOT prime
+    """
 
     if num == 2:
         return True
@@ -28,5 +37,4 @@ else:
 Wikipedia-ում պարզ թիվ ստուգելու Python կոդի շատ հետաքրքիր տարբերակ կա,
 ու ոնց հասկանում եմ՝ շատ էֆեկտիվ աշխատող
 https://en.wikipedia.org/wiki/Primality_test#Python_Code
-չնայած ֆունկցիան հայտարարելուց «-> bool» գրառումը դեռ չեմ հասկանում
 """
