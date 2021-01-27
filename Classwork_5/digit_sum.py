@@ -1,6 +1,6 @@
 def digit_sum(num):
-    if num == 0:
-        return 0
+    if num < 10:
+        return num
 
     return num % 10 + digit_sum(num// 10)
 
