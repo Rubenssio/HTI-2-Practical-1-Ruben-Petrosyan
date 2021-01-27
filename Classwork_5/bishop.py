@@ -1,12 +1,11 @@
-def input_matrix(n):
+def input_matrix_and_find(n, to_find):
     mat = []
     loc = 'unknown location'
     for i in range(n):
         row = input().split()
-        if 'B' in row:
-            loc = (i, row.index('B'))
+        if to_find in row:
+            loc = (i, row.index(to_find))
         mat.append(row)
-
     return mat, loc
 
 
@@ -22,7 +21,7 @@ def output_matrix(mtx):
 #MAIN PROGRAM
 n_of_rows = int(input('Number of rows: '))
 
-matrix, B_location = input_matrix(n_of_rows)
+matrix, B_location = input_matrix_and_find(n_of_rows, 'B')
 
 num_of_rows = len(matrix)
 num_of_cols = len(matrix[0])
