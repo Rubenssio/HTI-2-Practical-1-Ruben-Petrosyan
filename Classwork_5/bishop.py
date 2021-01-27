@@ -1,8 +1,13 @@
 def input_matrix(n):
     mat = []
-    for _ in range(n):
-        mat.append(input().split())
-    return mat
+    loc = 'unknown location'
+    for i in range(n):
+        row = input().split()
+        if 'B' in row:
+            loc = (i, row.index('B'))
+        mat.append(row)
+
+    return mat, loc
 
 
 def output_matrix(mtx):
@@ -14,24 +19,13 @@ def output_matrix(mtx):
         print()
 
 
-# MAIN PROGRAM
+#MAIN PROGRAM
 n_of_rows = int(input('Number of rows: '))
 
-matrix = input_matrix(n_of_rows)
+matrix, B_location = input_matrix(n_of_rows)
 
 num_of_rows = len(matrix)
 num_of_cols = len(matrix[0])
-
-B_location = 'unknown location'
-found = False
-for i in range(num_of_rows):
-    for j in range(num_of_cols):
-        if matrix[i][j] == 'B':
-            B_location = (i, j)
-            found = True
-            break
-    if found:
-        break
 
 print('B is at', B_location)
 
