@@ -31,9 +31,9 @@ def transform_diagonal(mat, direction, B_loc):
 
 
 # MAIN PROGRAM
-n_of_rows = int(input('Number of rows: '))
+n = 8
 
-matrix, B_location = input_matrix_and_find(n_of_rows, 'B')
+matrix, B_location = input_matrix_and_find(n, 'B')
 
 print('B is at', B_location)
 
