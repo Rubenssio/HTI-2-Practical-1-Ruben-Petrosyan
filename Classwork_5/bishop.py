@@ -1,6 +1,6 @@
 def input_matrix_and_find(n, to_find):
     mat = []
-    loc = 'unknown location'
+    loc = -1, -1
     for i in range(n):
         row = input().split()
         if to_find in row:
@@ -18,10 +18,10 @@ def output_matrix(mtx):
         print()
 
 
-def transform_diagonal(mat, direction, B_loc):
+def transform_diagonal(mat, direction, loc):
     for d in direction:
-        i = B_loc[0]
-        j = B_loc[1]
+        i = loc[0]
+        j = loc[1]
         while 0 <= i < len(mat) and 0 <= j < len(mat):
             matrix[i][j] = 'x'
             i += d[0]
@@ -31,15 +31,16 @@ def transform_diagonal(mat, direction, B_loc):
 
 
 # MAIN PROGRAM
-n = 8
+num_of_rows = 8
+print('Please input the 8x8 matrix')
+matrix, B_location = input_matrix_and_find(num_of_rows, 'B')
+print()
 
-matrix, B_location = input_matrix_and_find(n, 'B')
-
-print('B is at', B_location)
-
-if type(B_location) is not str:
+if B_location != (-1, -1):
     directions = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
 
     transform_diagonal(matrix, directions, B_location)
+else:
+    print("'B' is not found")
 
 output_matrix(matrix)
