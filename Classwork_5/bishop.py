@@ -37,34 +37,15 @@ for i in range(num_of_rows):
 
 print('B is at', B_location)
 
-i = B_location[0]
-j = B_location[1]
-while i >= 0 and j < num_of_cols:
-    matrix[i][j] = 'x'
-    i -= 1
-    j += 1
+directions = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
 
-i = B_location[0]
-j = B_location[1]
-while i < num_of_rows and j < num_of_cols:
-    matrix[i][j] = 'x'
-    i += 1
-    j += 1
-
-i = B_location[0]
-j = B_location[1]
-while i < num_of_rows and j >= 0:
-    matrix[i][j] = 'x'
-    print(i, j)
-    i += 1
-    j -= 1
-
-i = B_location[0]
-j = B_location[1]
-while i >= 0 and j >= 0:
-    matrix[i][j] = 'x'
-    i -= 1
-    j -= 1
+for dir in directions:
+    i = B_location[0]
+    j = B_location[1]
+    while 0 <= i < num_of_rows and 0 <= j < num_of_cols:
+        matrix[i][j] = 'x'
+        i += dir[0]
+        j += dir[1]
 
 matrix[B_location[0]][B_location[1]] = 'B'
 
