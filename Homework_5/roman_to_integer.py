@@ -3,7 +3,7 @@ def roman_to_integer(roman):
     integer = 0
     i = len(roman) - 1
     while i > 0:
-        if values[roman[i-1]] >= values[roman[i]]:
+        if values[roman[i - 1]] >= values[roman[i]]:
             integer += values[roman[i]]
             i -= 1
         else:
