@@ -1,16 +1,16 @@
 def roman_to_integer(roman):
     values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
     integer = 0
-    i = len(roman) - 1
-    while i > 0:
-        if values[roman[i - 1]] >= values[roman[i]]:
+    i = 0
+    while i < len(roman) - 1:
+        if values[roman[i]] >= values[roman[i + 1]]:
             integer += values[roman[i]]
-            i -= 1
+            i += 1
         else:
-            integer += values[roman[i]] - values[roman[i - 1]]
-            i -= 2
-    if values[roman[0]] >= values[roman[1]]:
-        integer += values[roman[0]]
+            integer += values[roman[i + 1]] - values[roman[i]]
+            i += 2
+    if values[roman[-1]] <= values[roman[-2]]:
+        integer += values[roman[-1]]
 
     return integer
 
