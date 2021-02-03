@@ -15,6 +15,6 @@ def roman_to_integer(roman):
     return integer
 
 
-rom = input('Enter the roman number: ')
+rom = input('Enter the roman number: ').upper()
 
 print("Thant's equal to", roman_to_integer(rom))
