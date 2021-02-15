@@ -21,8 +21,8 @@ def guess_the_number(the_range, number_of_guesses):
     # checking if the guess was high or low
     if missed < 0:
         return guess_the_number((the_range[0], the_guess - 1), number_of_guesses)
-    else:
-        return guess_the_number((the_guess + 1, the_range[1]), number_of_guesses)
+
+    return guess_the_number((the_guess + 1, the_range[1]), number_of_guesses)
 
 
 if __name__ == '__main__':
