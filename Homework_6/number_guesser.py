@@ -4,7 +4,7 @@
 def guess_the_number(the_range, number_of_guesses):
     number_of_guesses += 1
 
-    the_guess = round((the_range[0] + the_range[1]) / 2)
+    the_guess = (the_range[0] + the_range[1]) // 2
 
     print(f'My guess number {number_of_guesses} is: {the_guess}')
     print(f'(if correct input 0, if your number is higher than {the_guess} input 1, else -1)')
