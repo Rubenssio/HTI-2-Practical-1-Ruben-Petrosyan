@@ -29,33 +29,56 @@ def update_word(the_letter, from_word, to_word):
             )
 
 
-def guessing(word, mistakes_left):
+# def guessing(word, mistakes_left):
+#
+#     guessed = False
+#     guessed_word = '_' * len(word)
+#
+#     while mistakes_left > 0 and not guessed:
+#         print(f'Guess the word. {mistakes_left} mistakes left')
+#         print(make_bigger(guessed_word))
+#
+#         letter = ''
+#         while len(letter) != 1:
+#             letter = input('Guess a letter: ').lower()
+#
+#         change = update_word(letter, word, guessed_word)
+#
+#         if guessed_word != change:
+#             guessed_word = change
+#         else:
+#             mistakes_left -= 1
+#
+#         if guessed_word == word:
+#             guessed = True
+#
+#     if guessed:
+#         return make_bigger(word) + '\nYou won the game'
+#     return 'You lost the game, the word was: ' + word.upper()
 
-    guessed = False
 
-    guessed_word = '_' * len(word)
-
-    while mistakes_left > 0 and not guessed:
-        print(f'Guess the word. {mistakes_left} mistakes left')
-        print(make_bigger(guessed_word))
-
-        letter = ''
-        while len(letter) != 1:
-            letter = input('Guess a letter: ').lower()
-
-        change = update_word(letter, word, guessed_word)
-
-        if guessed_word != change:
-            guessed_word = change
-        else:
-            mistakes_left -= 1
-
-        if guessed_word == word:
-            guessed = True
-
-    if guessed:
+def guessing_recursive(word, mistakes_left, guess):
+    if word == guess:
         return make_bigger(word) + '\nYou won the game'
-    return 'You lost the game, the word was: ' + word.upper()
+
+    if mistakes_left < 1:
+        return 'You lost the game, the word was: ' + word.upper()
+
+    print(f'Guess the word. {mistakes_left} mistakes left')
+    print(make_bigger(guess))
+
+    letter = ''
+    while len(letter) != 1:
+        letter = input('Guess a letter: ').lower()
+
+    # եթե ժամանակ լինի, մտածել հետևյալ 5 տողը ավելի սիրուն/օպտիմալ ինչպես կարելի է գրել
+    change = update_word(letter, word, guess)
+    if guess != change:
+        guess = change
+    else:
+        mistakes_left -= 1
+
+    return guessing_recursive(word, mistakes_left, guess)
 
 
 if __name__ == '__main__':
@@ -64,4 +87,5 @@ if __name__ == '__main__':
     the_word = get_a_random_line(file)
     mistakes_allowed = 5
 
-    print(guessing(the_word, mistakes_allowed))
+    # print(guessing(the_word, mistakes_allowed))
+    print(guessing_recursive(the_word, mistakes_allowed, '_' * len(the_word)))
