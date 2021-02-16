@@ -1,4 +1,5 @@
 import random
+import os
 
 
 def get_a_random_line(file_path):
@@ -84,8 +85,11 @@ def guessing_recursive(word, mistakes_left, guess):
 if __name__ == '__main__':
 
     file = 'fruits.txt'
-    the_word = get_a_random_line(file)
+    dir_path = os.path.dirname(os.path.abspath(__file__))  # current directory
+    file_path = os.path.join(dir_path, file)
+
+    the_word = get_a_random_line(file_path)
     mistakes_allowed = 5
 
-    # print(guessing(the_word, mistakes_allowed))
+    # print(guessing(the_word, mistakes_allowed))  # not recursive version of the function
     print(guessing_recursive(the_word, mistakes_allowed, '_' * len(the_word)))
