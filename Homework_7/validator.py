@@ -30,11 +30,11 @@ def validate_phone_number(arm_phone_num):
             '('
                 '\d{6}'  # either a number without any spaces or dashes
             '|'
-                '\d{3}[ -]\d{3}'  # or a number in '123-456' or '123 456' form
+                '\d{3}[ -]\d{3}'  # or a number in '123-456' or '123 456' format
             '|'
-                '\d{2} \d{2} \d{2}'  # or a number in '12 34 56' form
+                '\d{2} \d{2} \d{2}'  # or a number in '12 34 56' format
             '|'
-                '\d{2}-\d{2}-\d{2}'  # or a number in '12-34-56' form
+                '\d{2}-\d{2}-\d{2}'  # or a number in '12-34-56' format
             ')'
     )  # notice that '12-34 56' and '12 34-56' forms are not going to be valid
 
