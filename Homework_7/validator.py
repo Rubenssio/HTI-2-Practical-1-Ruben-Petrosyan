@@ -25,16 +25,17 @@ def validate_phone_number(arm_phone_num):
     """
 
     rules = (
-            '0?(55|77|91|98|99)'  # 0 can or cannot be before the operator-code
-            '[ -]?'
+            '0?'  # there might or might not be a zero before the operator-code
+            '(55|77|91|98|99)'  # operator-codes
+            '[ -]?'  # there might or might not be either a space or a dash between the operator-code and the number
             '('
-                '\d{6}'  # either a number without any spaces or dashes
-            '|'
-                '\d{3}[ -]\d{3}'  # or a number in '123-456' or '123 456' format
-            '|'
-                '\d{2} \d{2} \d{2}'  # or a number in '12 34 56' format
-            '|'
-                '\d{2}-\d{2}-\d{2}'  # or a number in '12-34-56' format
+                    '\d{6}'  # either a number without any spaces or dashes
+                '|'
+                    '\d{3}[ -]\d{3}'  # or a number in '123-456' or '123 456' format
+                '|'
+                    '\d{2} \d{2} \d{2}'  # or a number in '12 34 56' format
+                '|'
+                    '\d{2}-\d{2}-\d{2}'  # or a number in '12-34-56' format
             ')'
     )  # notice that '12-34 56' and '12 34-56' formats are not going to be valid
 
@@ -94,7 +95,7 @@ def validate_email(address):
         ')*'                    # for 0 or more times
         '('
             '\.'                    # the HOSTNAME_LABEL pattern repeated after a dot, two or more consecutive
-            '[a-zA-Z\d]+'           # dots are not allowed, at lease one other character after the dot
+            '[a-zA-Z\d]+'           # dots are not allowed, at least one other character after the dot
             '('
                 '[\-a-zA-Z\d]*'
                 '[a-zA-Z\d]+'           # at least one alphanumeric character after hyphen
@@ -111,56 +112,76 @@ def validate_email(address):
     return re.fullmatch(rules, address)
 
 
-def validate_broker(command, value):
+def validate_broker(command, value=None, *, check_if_command_exists=False):
     """
     Gets a value and a format type and prints whether
-    the value is a valid instance of that format type
+    the value is a valid instance of that format type.
+    Also can check whether a command exists.
+
 
     Parameters
     __________
     command : str
-        the format type the validate the value against
-    value : str
+        the format type to validate the value against
+    value : str, optional
         the value to be validated
+    check_if_command_exists : bool, optional
+        used when checking whether the command exists
 
     Returns
     _______
     None
-        This function only prints
+        This function only prints when check_if_command_exists = False
+    bool
+        True, if given command exists
+        False, if given command DOES NOT exist
+        this works only if check_if_command_exists = True
     """
 
-    if command == 'email':
-        if validate_email(value):
-            print('Yes, this is a valid email address format\n')
-        else:
-            print('No, this is NOT a valid email address format\n')
-    elif command == 'phone_number':
-        if validate_phone_number(value):
-            print('Yes, this is a valid Armenian phone number format\n')
-        else:
-            print('No, this is NOT a valid Armenian phone number format\n')
+    validators_list = ('email', 'phone_number')
+    format_dict = {'email': 'email address', 'phone_number': 'Armenian phone number'}
+
+    if check_if_command_exists:
+        return command in validators_list
+
+    if command == validators_list[0]:
+        validated = validate_email(value)
+        formatting = 'email address'
+    elif command == validators_list[1]:
+        validated = validate_phone_number(value)
+        formatting = 'Armenian phone number'
     else:
         print('No such command.\n')
+        return
+
+    if validated:
+        print(f'YES, this IS a valid {formatting} format\n')
+    else:
+        print(f'No, this IS NOT a valid {formatting} format\n')
 
 
 if __name__ == '__main__':
     # Please make sure to type correct quote characters when using command line arguments
 
     command_assignment_gave_exception = False
-
     try:
         command = sys.argv[1]
     except IndexError:
-        command = input('Type one of the following commands.\nemail\nphone_number\n')
         command_assignment_gave_exception = True
+        command = input('Type one of the following commands.\n'
+                        'email\n'
+                        'phone_number\n')
 
-    try:
-        if command_assignment_gave_exception:
+    if validate_broker(command.lower(), check_if_command_exists=True):
+        try:
+            if command_assignment_gave_exception:
+                value = input('Please type the value without quotes.\n')
+            else:
+                value = sys.argv[2]
+            validate_broker(command.lower(), value)
+        except IndexError:
+            print('No value passed.')
             value = input('Please type the value without quotes.\n')
-        else:
-            value = sys.argv[2]
-        validate_broker(command, value.lower())
-    except IndexError:
-        print('No value passed.')
-        value = input('Please type the value without quotes.\n')
-        validate_broker(command, value.lower())
+            validate_broker(command.lower(), value)
+    else:
+        print('No such command.\n')
