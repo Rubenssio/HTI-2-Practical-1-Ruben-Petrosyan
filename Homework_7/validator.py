@@ -164,6 +164,7 @@ if __name__ == '__main__':
     # Please make sure to type correct quote characters when using command line arguments
 
     command_assignment_gave_exception = False
+
     try:
         command = sys.argv[1]
     except IndexError:
@@ -174,14 +175,12 @@ if __name__ == '__main__':
 
     if validate_broker(command.lower(), check_if_command_exists=True):
         try:
-            if command_assignment_gave_exception:
-                value = input('Please type the value without quotes.\n')
-            else:
-                value = sys.argv[2]
-            validate_broker(command.lower(), value)
+            value = sys.argv[2]
         except IndexError:
-            print('No value passed.')
+            if not command_assignment_gave_exception:
+                print('No value passed.')
             value = input('Please type the value without quotes.\n')
-            validate_broker(command.lower(), value)
+
+        validate_broker(command.lower(), value)
     else:
         print('No such command.\n')
