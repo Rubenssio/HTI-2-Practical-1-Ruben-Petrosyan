@@ -36,7 +36,7 @@ def validate_phone_number(arm_phone_num):
             '|'
                 '\d{2}-\d{2}-\d{2}'  # or a number in '12-34-56' format
             ')'
-    )  # notice that '12-34 56' and '12 34-56' forms are not going to be valid
+    )  # notice that '12-34 56' and '12 34-56' formats are not going to be valid
 
     return re.fullmatch(rules, arm_phone_num)
 
@@ -71,26 +71,37 @@ def validate_email(address):
 
     rules = (
         # the email address is a 'local-part@domain' construction
+        # domain is a 'HOSTNAME_LABEL.top_level_domain' construction e.g. 'gmail.com'
         '('
             '(?=.{1,64}@.{1,255}$)'  # limiting local-part to 64 and domain to 255 characters
-            '^[^\(\)\,\:\;\<\>\@\[\]\.\s]+'  # local-part without quotes can include anything but these characters
-                                             # these characters are only allowed inside a quoted string
+            '^[^\(\)\,\:\;\<\>\@\[\]\.\s]+'  # local-part without quotes can include ANYTHING BUT THESE CHARACTERS
+                                             # these characters are only allowed inside a quoted local-part (see below)
             '('
-                '\.?'
-                '[^\(\)\,\:\;\<\>\@\[\]\.\s]+'  # same pattern can continue after a single dot
+                '\.?'                           # same pattern can continue after a dot, two or more consecutive
+                '[^\(\)\,\:\;\<\>\@\[\]\.\s]+'  # dots are not allowed, at lease one other character after the dot
             ')*'                                # for 0 or more times
         '|'
             '(?=.{1,66}@.{1,255}$)'  # limiting local-part to 64 (excluding quotes) and domain to 255 characters
             '\"'
                 '[^\\"]*'  # local-part can be anything if written between quotes, except '\' and '"'
             '\"'           # for the sake of this homework I have simplified the rules for a quoted local-part
-        ')'
+        ')'                # for more info about limitations of the local-part in quotes go to wikipedia mentioned above
     '@'
-        '[a-zA-Z\d]+([\-a-zA-Z\d]*[a-zA-Z\d]+)*'  # the hostname label is a combination of alphanumerics and the hyphen
-                                                  # except it CAN'T START OR END with a hyphen
-        '(\.[a-zA-Z\d]+([\-a-zA-Z\d]*[a-zA-Z\d]+)*)*'  # above pattern repeated after a single dot for 0 or more times
+        '[a-zA-Z\d]+'           # HOSTNAME_LABEL is a combination of alphanumerics and the hyphen
+        '('
+            '[\-a-zA-Z\d]*'             # except it CAN'T START OR END with a hyphen
+            '[a-zA-Z\d]+'               # at least one alphanumeric character after hyphen
+        ')*'                    # for 0 or more times
+        '('
+            '\.'                    # the HOSTNAME_LABEL pattern repeated after a dot, two or more consecutive
+            '[a-zA-Z\d]+'           # dots are not allowed, at lease one other character after the dot
+            '('
+                '[\-a-zA-Z\d]*'
+                '[a-zA-Z\d]+'           # at least one alphanumeric character after hyphen
+            ')*'                    # for 0 or more times
+        ')*'                    # for 0 or more times
     '\.'
-        '([a-zA-Z]{2,})'  # top-level domain names (e.g. .com .org .net) are two or more characters long
+        '([a-zA-Z]{2,})'  # top_level_domain names (e.g. .com .org .net) are two or more characters long
                           # the 'co' in '.co.uk' is handled in the code-lines between '@' and '\.' right above
     )
 
