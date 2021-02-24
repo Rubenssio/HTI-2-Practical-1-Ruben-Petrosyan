@@ -4,12 +4,28 @@ import sys
 
 def validate_phone_number(arm_phone_num):
     """
-    only 55, 77, 91, 98, 99 codes are given in the homework
-    we assume that 00-00-00 number is a valid number
+    Gets a phone number and returns True if the format of the number is Armenian
+    and False otherwise
+
+    Parameters
+    __________
+    arm_phone_num : str
+        the phone number as a string
+
+    Returns
+    _______
+    bool
+        True, if the number it got IS a valid Armenian phone number format
+        False, if the number it got IS NOT a valid Armenia phone number format
+    """
+
+    """
+    only 55, 77, 91, 98, 99 operator-codes are given in the homework
+    we assume that 00-00-00 is a valid phone number
     """
 
     rules = (
-            '0?(55|77|91|98|99)'  # 0 can or cannot be before the code
+            '0?(55|77|91|98|99)'  # 0 can or cannot be before the operator-code
             '[ -]?'
             '('
                 '\d{6}'  # either a number without any spaces or dashes
@@ -27,14 +43,27 @@ def validate_phone_number(arm_phone_num):
 
 def validate_email(address):
     """
+    Gets an email address and returns True if it's a valid email format
+    and False otherwise
+
+    Parameters
+    __________
+    address : str
+        the email address as a string
+
+    Returns
+    _______
+    bool
+        True, if the address IS in a valid email format
+        False, if the address IS NOT in a valid email format
+    """
+
+    """
     looked up literature:
     https://docs.python.org/3/library/re.html
     https://en.wikipedia.org/wiki/Email_address#Syntax
     https://en.wikipedia.org/wiki/Hostname#Syntax
     https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s09.html
-    https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch02s16.html
-    https://help.returnpath.com/hc/en-us/articles/220560587-What-are-the-rules-for-email-address-syntax-
-    https://help.xmatters.com/ondemand/trial/valid_email_format.htm
 
     This homework exercise is limited to only one regular expression thus
     ONLY SOME OF THE EMAIL VARIATIONS ARE VALIDATED BY THIS EMAIL VALIDATOR
@@ -72,22 +101,39 @@ def validate_email(address):
 
 
 def validate_broker(command, value):
+    """
+    Gets a value and a format type and prints whether
+    the value is a valid instance of that format type
+
+    Parameters
+    __________
+    command : str
+        the format type the validate the value against
+    value : str
+        the value to be validated
+
+    Returns
+    _______
+    None
+        This function only prints
+    """
+
     if command == 'email':
         if validate_email(value):
-            print('Yes, this is a valid email address syntax\n')
+            print('Yes, this is a valid email address format\n')
         else:
-            print('No, this is NOT a valid email address syntax\n')
+            print('No, this is NOT a valid email address format\n')
     elif command == 'phone_number':
         if validate_phone_number(value):
-            print('Yes, this is a valid phone number form\n')
+            print('Yes, this is a valid Armenian phone number format\n')
         else:
-            print('No, this is NOT a valid phone number form\n')
+            print('No, this is NOT a valid Armenian phone number format\n')
     else:
         print('No such command.\n')
 
 
 if __name__ == '__main__':
-    # Please make sure to type correct quotes when using command line arguments
+    # Please make sure to type correct quote characters when using command line arguments
 
     command_assignment_gave_exception = False
 
