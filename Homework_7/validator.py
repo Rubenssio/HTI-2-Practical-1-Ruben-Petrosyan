@@ -106,7 +106,7 @@ def validate_email(address):
                           # the 'co' in '.co.uk' is handled in the code-lines between '@' and '\.' right above
     )
 
-    # the maximum of 63 character limitation of each hostname label is not validated with this regex
+    # the maximum of 63 character limitation of each HOSTNAME_LABEL is not validated with this regex
     # but overall 255 character domain limitation IS validated
 
     return re.fullmatch(rules, address)
@@ -116,7 +116,7 @@ def validate_broker(command, value=None, *, check_if_command_exists=False):
     """
     Gets a value and a format type and prints whether
     the value is a valid instance of that format type.
-    Also can check whether a command exists.
+    Also can check whether a format type (command) exists.
 
 
     Parameters
@@ -163,12 +163,12 @@ def validate_broker(command, value=None, *, check_if_command_exists=False):
 if __name__ == '__main__':
     # Please make sure to type correct quote characters when using command line arguments
 
-    command_assignment_gave_exception = False
+    no_exception_when_assigning_to_command = True
 
     try:
         command = sys.argv[1]
     except IndexError:
-        command_assignment_gave_exception = True
+        no_exception_when_assigning_to_command = False
         command = input('Type one of the following commands.\n'
                         'email\n'
                         'phone_number\n')
@@ -177,7 +177,7 @@ if __name__ == '__main__':
         try:
             value = sys.argv[2]
         except IndexError:
-            if not command_assignment_gave_exception:
+            if no_exception_when_assigning_to_command:
                 print('No value passed.')
             value = input('Please type the value without quotes.\n')
 
