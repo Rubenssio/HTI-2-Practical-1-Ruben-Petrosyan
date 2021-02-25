@@ -29,13 +29,13 @@ def validate_phone_number(arm_phone_num):
             '(55|77|91|98|99)'  # operator-codes
             '[ -]?'  # there might or might not be either a space or a dash between the operator-code and the number
             '('
-                    '\d{6}'  # either a number without any spaces or dashes
+                    r'\d{6}'  # either a number without any spaces or dashes
                 '|'
-                    '\d{3}[ -]\d{3}'  # or a number in '123-456' or '123 456' format
+                    r'\d{3}[ -]\d{3}'  # or a number in '123-456' or '123 456' format
                 '|'
-                    '\d{2} \d{2} \d{2}'  # or a number in '12 34 56' format
+                    r'\d{2} \d{2} \d{2}'  # or a number in '12 34 56' format
                 '|'
-                    '\d{2}-\d{2}-\d{2}'  # or a number in '12-34-56' format
+                    r'\d{2}-\d{2}-\d{2}'  # or a number in '12-34-56' format
             ')'
     )  # notice that '12-34 56' and '12 34-56' formats are not going to be valid
 
@@ -74,36 +74,36 @@ def validate_email(address):
         # the email address is a 'local-part@domain' construction
         # domain is a 'HOSTNAME_LABEL.top_level_domain' construction e.g. 'gmail.com'
         '('
-            '(?=.{1,64}@.{1,255}$)'  # limiting local-part to 64 and domain to 255 characters
-            '^[^\(\)\,\:\;\<\>\@\[\]\.\s]+'  # local-part without quotes can include ANYTHING BUT THESE CHARACTERS
+            r'(?=.{1,64}@.{1,255}$)'  # limiting local-part to 64 and domain to 255 characters
+            r'^[^\(\)\,\:\;\<\>\@\[\]\.\s]+'  # local-part without quotes can include ANYTHING BUT THESE CHARACTERS
                                              # these characters are only allowed inside a quoted local-part (see below)
             '('
-                '\.?'                           # same pattern can continue after a dot, two or more consecutive
-                '[^\(\)\,\:\;\<\>\@\[\]\.\s]+'  # dots are not allowed, at lease one other character after the dot
+                r'\.?'                           # same pattern can continue after a dot, two or more consecutive
+                r'[^\(\)\,\:\;\<\>\@\[\]\.\s]+'  # dots are not allowed, at lease one other character after the dot
             ')*'                                # for 0 or more times
         '|'
-            '(?=.{1,66}@.{1,255}$)'  # limiting local-part to 64 (excluding quotes) and domain to 255 characters
-            '\"'
-                '[^\\"]*'  # local-part can be anything if written between quotes, except '\' and '"'
-            '\"'           # for the sake of this homework I have simplified the rules for a quoted local-part
+            r'(?=.{1,66}@.{1,255}$)'  # limiting local-part to 64 (excluding quotes) and domain to 255 characters
+            r'\"'
+                r'[^\\"]*'  # local-part can be anything if written between quotes, except '\' and '"'
+            r'\"'           # for the sake of this homework I have simplified the rules for a quoted local-part
         ')'                # for more info about limitations of the local-part in quotes go to wikipedia mentioned above
     '@'
-        '[a-zA-Z\d]+'           # HOSTNAME_LABEL is a combination of alphanumerics and the hyphen
+        r'[a-zA-Z\d]+'           # HOSTNAME_LABEL is a combination of alphanumerics and the hyphen
         '('
-            '[\-a-zA-Z\d]*'             # except it CAN'T START OR END with a hyphen
-            '[a-zA-Z\d]+'               # at least one alphanumeric character after hyphen
+            r'[\-a-zA-Z\d]*'             # except it CAN'T START OR END with a hyphen
+            r'[a-zA-Z\d]+'               # at least one alphanumeric character after hyphen
         ')*'                    # for 0 or more times
         '('
-            '\.'                    # the HOSTNAME_LABEL pattern repeated after a dot, two or more consecutive
-            '[a-zA-Z\d]+'           # dots are not allowed, at least one other character after the dot
+            r'\.'                    # the HOSTNAME_LABEL pattern repeated after a dot, two or more consecutive
+            r'[a-zA-Z\d]+'           # dots are not allowed, at least one other character after the dot
             '('
-                '[\-a-zA-Z\d]*'
-                '[a-zA-Z\d]+'           # at least one alphanumeric character after hyphen
+                r'[\-a-zA-Z\d]*'
+                r'[a-zA-Z\d]+'           # at least one alphanumeric character after hyphen
             ')*'                    # for 0 or more times
         ')*'                    # for 0 or more times
-    '\.'
-        '([a-zA-Z]{2,})'  # top_level_domain names (e.g. .com .org .net) are two or more characters long
-                          # the 'co' in '.co.uk' is handled in the code-lines between '@' and '\.' right above
+    r'\.'
+        r'([a-zA-Z]{2,})'  # top_level_domain names (e.g. .com .org .net) are two or more characters long
+                          # the 'co' in '.co.uk' is handled in the code-lines between '@' and r'\.' right above
     )
 
     # the maximum of 63 character limitation of each HOSTNAME_LABEL is not validated with this regex
