@@ -42,12 +42,15 @@ def odd_gen(start, stop):
         consisting of only even digits
     """
 
-    number = start
+    if start % 2 == 0:
+        current_num = start + 1
+    else:
+        current_num = start
 
-    while number < stop:
-        if all_odd_digits(number):
-            yield number
-        number += 1
+    while current_num < stop:
+        if all_odd_digits(current_num):
+            yield current_num
+        current_num += 2
 
 
 if __name__ == '__main__':
