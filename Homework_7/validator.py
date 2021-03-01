@@ -138,19 +138,18 @@ def validate_broker(command, value=None, *, check_if_command_exists=False):
         this works only if check_if_command_exists = True
     """
 
-    validators_list = ('email', 'phone_number')
-    format_dict = {'email': 'email address', 'phone_number': 'Armenian phone number'}
+    commands = {
+        'email': (validate_email, 'email address'),
+        'phone_number': (validate_phone_number, 'Armenian phone number')
+    }
 
     if check_if_command_exists:
-        return command in validators_list
+        return command in commands
 
-    if command == validators_list[0]:
-        validated = validate_email(value)
-        formatting = 'email address'
-    elif command == validators_list[1]:
-        validated = validate_phone_number(value)
-        formatting = 'Armenian phone number'
-    else:
+    try:
+        validated = commands[command][0](value)
+        formatting = commands[command][1]
+    except KeyError:
         print('No such command.\n')
         return
 
@@ -164,6 +163,7 @@ if __name__ == '__main__':
     # Please make sure to type correct quote characters when using command line arguments
 
     no_exception_when_assigning_to_command = True
+    value = None
 
     try:
         command = sys.argv[1]
@@ -181,6 +181,4 @@ if __name__ == '__main__':
                 print('No value passed.')
             value = input('Please type the value without quotes.\n')
 
-        validate_broker(command.lower(), value)
-    else:
-        print('No such command.\n')
+    validate_broker(command.lower(), value)
