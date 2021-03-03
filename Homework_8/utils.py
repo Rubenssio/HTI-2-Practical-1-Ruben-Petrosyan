@@ -63,8 +63,8 @@ if __name__ == '__main__':
 
         successful_a_b_assignment = True
 
-    except IndexError:
-        print('\nThis program works only with two command line arguments\n')
+    except (IndexError, ValueError):
+        print('\nThis program works only with two command line arguments the type of which are "int"\n')
 
     if successful_a_b_assignment:
         for n in odd_gen(a, b):
