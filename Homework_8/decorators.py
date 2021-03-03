@@ -13,7 +13,7 @@ def warn_slow(func):
         threshold = 2  # in seconds
 
         if duration > threshold:
-            print(f'execution of {func.__name__} with {args} arguments took more than {threshold} seconds')
+            print(f'execution of {func.__name__} with {args} positional and {kwargs} keyword arguments took more than {threshold} seconds')
 
         return result
 
