@@ -1,13 +1,15 @@
 class Employee:
-    def __init__(self, f_name, l_name,
+    def __init__(self,
+                 first_name, last_name,
                  *,
                  phone=None, email=None,
                  trial=False,
                  join_date=None, leave_date=None,
                  salary=None,
-                 gender=None):
-        self.f_name = f_name
-        self.l_name = l_name
+                 gender=None
+                 ):
+        self.fist_name = first_name
+        self.last_name = last_name
         self.phone = phone
         self.email = email
         self.trial = trial
@@ -18,7 +20,7 @@ class Employee:
 
     @property
     def full_name(self):
-        return f'{self.f_name} {self.l_name}'
+        return f'{self.first_name} {self.last_name}'
 
     @full_name.setter
     def full_name(self, full_name):
@@ -26,9 +28,34 @@ class Employee:
         if len(values) != 2:
             raise ValueError(
                 'Full name must be a first name followed by a last name,\n'
-                'if either first or last name consists of more than one word, set them separately'
+                'if either first or last name consists of more than one word,'
+                'set the first name and the last name separately'
             )
-        self.f_name, self.l_name = values
+        self.first_name, self.last_name = values
+
+    def __repr__(self):
+        return f'<Employee {self.first_name} {self.last_name}>'
+
+    def __bool__(self):
+        return self.trial
+
+    def __eq__(self, other):
+        return self.email == other.email or self.phone == other.phone
+
+    def __ne__(self, other):
+        return not (self.email == other.email or self.phone == other.phone)
+
+    def __lt__(self, other):
+        return self.salary < other.salary
+
+    def __le__(self, other):
+        return self.salary <= other.salary
+
+    def __gt__(self, other):
+        return self.salary > other.salary
+
+    def __ge__(self, other):
+        return self.salary >= other.salary
 
 
 if __name__ == '__main__':
