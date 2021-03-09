@@ -1,5 +1,8 @@
+from datetime import date
+
 from Homework_7.validator import validate_phone_number
 from Homework_7.validator import validate_email
+
 
 class Employee:
     def __init__(self,
@@ -78,6 +81,48 @@ class Employee:
             raise ValueError('Email address is not a valid email address')
 
     @property
+    def join_date(self):
+        return self.__join_date
+
+    @join_date.setter
+    def join_date(self, value):
+        if value:
+            try:
+                value = value.strip()
+                separator = '-'
+                for char in value:
+                    if not char.isdigit():
+                        separator = char
+                        break
+                value = list(map(int, value.split(separator)))
+                self.__join_date = date(value[0], value[1], value[2])
+            except (ValueError, IndexError):
+                raise ValueError('The date must be in yyyy-mm-dd format')
+        else:
+            self.__join_date = None
+
+    @property
+    def leave_date(self):
+        return self.__leave_date
+
+    @leave_date.setter
+    def leave_date(self, value):
+        if value:
+            try:
+                value = value.strip()
+                separator = '-'
+                for char in value:
+                    if not char.isdigit():
+                        separator = char
+                        break
+                value = list(map(int, value.split(separator)))
+                self.__leave_date = date(value[0], value[1], value[2])
+            except (ValueError, IndexError):
+                raise ValueError('The date must be in yyyy-mm-dd format')
+        else:
+            self.__leave_date = None
+
+    @property
     def gender(self):
         return self.__gender
 
@@ -132,7 +177,7 @@ if __name__ == '__main__':
                     phone='077123456',
                     email='Aram@yahoo.com',
                     trial=True,
-                    join_date='2020.12.25',
+                    join_date='2020-12-25',
                     salary=2000000,
                     gender='M')
 
