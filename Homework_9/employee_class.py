@@ -1,12 +1,15 @@
+from Homework_7.validator import validate_phone_number
+from Homework_7.validator import validate_email
+
 class Employee:
     def __init__(self,
                  first_name, last_name=None,
                  *,
-                 phone=None, email=None,  # validate when setting
+                 phone=None, email=None,
                  trial=False,
                  join_date=None, leave_date=None,  # time object
                  salary=None,  # $ in the front when printing
-                 gender=None  # can be only M or F
+                 gender=None
                  ):
         if last_name is None:
             self.full_name = first_name
@@ -51,6 +54,28 @@ class Employee:
                 '\t\t\tset the first name and the last name separately'
             )
         self.__first_name, self.__last_name = values
+
+    @property
+    def phone(self):
+        return self.__phone
+
+    @phone.setter
+    def phone(self, value):
+        if validate_phone_number(value.strip()):
+            self.__phone = value.strip()
+        else:
+            raise ValueError('Phone number is not a valid Armenian phone number')
+
+    @property
+    def email(self):
+        return self.__email
+
+    @email.setter
+    def email(self, value):
+        if validate_email(value.strip()):
+            self.__email = value.strip()
+        else:
+            raise ValueError('Email address is not a valid email address')
 
     @property
     def gender(self):
