@@ -10,8 +10,8 @@ class Employee:
                  *,
                  phone=None, email=None,
                  trial=False,
-                 join_date=None, leave_date=None,  # time object
-                 salary=None,  # $ in the front when printing
+                 join_date=None, leave_date=None,
+                 salary=None,
                  gender=None
                  ):
         if last_name is None:
