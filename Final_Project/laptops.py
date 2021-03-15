@@ -1,4 +1,5 @@
 import csv
+import math
 import os
 import re
 
@@ -72,32 +73,45 @@ class LaptopWithSpecs(Laptop):
 
     @property
     def ram(self):
-        unit = 'GB'
+        p = int(math.log(self._ram, 1024))
 
-        if self._ram < 1:
-            unit = 'MB'
-            value = self._ram * 1024
-        else:
-            value = self._ram
+        value = self._ram / 1024 ** p  # getting more human readable version of the RAM size
+        value = round(value, 1)  # rounding to the nearest 0.1
+        value = int(value) if value % 1 == 0 else value  # converting into 'int' if no decimal
 
-        if value % 1 == 0:
-            value = int(value)
+        units = 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'
 
-        return f'{value}{unit}'
+        return f'{value}{units[p]}'
 
     @ram.setter
     def ram(self, value):
 
-        pattern = r'\d+(.\d+)?[gG]'
+        pattern = (
+            r'\d+'                      # first character must be a digit (one or more digits)
+            r'(.\d+)?'                  # followed by a dot and one or more digits (repeated zero times or once)
+            r'[kKmMgGtTpPeEzZyY]?[bB]'  # unit must be right after the digits
+        )
+
         value = value.replace(' ', '').replace(',', '.')
 
         matched = re.search(pattern, value)
 
         if not matched:
-            raise ValueError('RAM must be entered in Gigabytes. "G" must follow the RAM value.'
-                             '\n\t\t\te.g 512MB must be entered as 0.5GB')
+            raise ValueError('The unit of the RAM must be indicated. e.g. "16" is not acceptable,'
+                             '\n\t\t\tthe value must be entered as "16GB" or "16MB" or etc.'
+                             '\n\t\t\t"512MB" can be entered as "0.5GB"')
 
-        self._ram = float(matched[0][:-1])  # float, in case value is not a whole number
+        units = 'B', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'
+
+        unit_index = -2
+        if matched[0][-2] not in units:  # if it's e.g. 16B, than we need to isolate the last one digit only
+            unit_index = -1
+
+        value = float(matched[0][:unit_index])  # getting only the numeric part of the RAM as a float
+
+        value = value * 1024 ** units.index(matched[0][unit_index])  # converting to bytes
+
+        self._ram = int(value)  # we're not using quantum computers yet. 'value' is in bytes, it can't have decimals
 
     @property
     def weight(self):
@@ -167,7 +181,7 @@ def laptops():
 
 if __name__ == '__main__':
 
-    i = 0
+    i = 1
     for lap in laptops():
-        i += 1
         print(i, lap)
+        i += 1
