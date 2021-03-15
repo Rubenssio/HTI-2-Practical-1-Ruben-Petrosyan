@@ -21,18 +21,15 @@ class Laptop:
 
     @screen_size.setter
     def screen_size(self, value):
-        if isinstance(value, (int, float)):
-            self._screen_size = float(value)
-        else:
-            error = ValueError('Screen size must be entered in <13.0"> format.')
+        error = ValueError('Screen size must be entered in <13.0"> format.')
 
-            if value[-1] != '"':
-                raise error
+        if value[-1] != '"':
+            raise error
 
-            try:
-                self._screen_size = float(value[:-1])
-            except ValueError:
-                raise error
+        try:
+            self._screen_size = float(value[:-1].replace(',', '.'))
+        except ValueError:
+            raise error
 
     @property
     def price(self):
@@ -94,7 +91,7 @@ class LaptopWithSpecs(Laptop):
 
         value = value.replace(' ', '').replace(',', '.')
 
-        matched = re.search(pattern, value)
+        matched = re.match(pattern, value)
 
         if not matched:
             raise ValueError('The unit of the RAM must be indicated. e.g. "16" is not acceptable,'
@@ -103,13 +100,13 @@ class LaptopWithSpecs(Laptop):
 
         units = 'B', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'
 
-        unit_index = -2
-        if matched[0][-2] not in units:  # if it's e.g. 16B, than we need to isolate the last one digit only
-            unit_index = -1
+        unit_index = -2  # to isolate last two characters as the unit
+        if matched[0][-2] not in units:  # if it's 16B for example,
+            unit_index = -1              # than we need to isolate only the last character
 
         value = float(matched[0][:unit_index])  # getting only the numeric part of the RAM as a float
 
-        value = value * 1024 ** units.index(matched[0][unit_index])  # converting to bytes
+        value = value * 1024 ** units.index(matched[0][unit_index])  # converting to bytes based on units
 
         self._ram = int(value)  # we're not using quantum computers yet. 'value' is in bytes, it can't have decimals
 
@@ -131,10 +128,15 @@ class LaptopWithSpecs(Laptop):
     @weight.setter
     def weight(self, value):
 
-        pattern = r'\d+(.\d+)?[gkGK]'
+        pattern = (
+            r'\d+'      # first character must be a digit (one or more digits)
+            r'(.\d+)?'  # followed by a dot and one or more digits (repeated zero times or once)
+            r'[gkGK]'   # unit must be right after the digits
+        )
+
         value = value.replace(' ', '').replace(',', '.')
 
-        matched = re.search(pattern, value)
+        matched = re.match(pattern, value)
 
         if not matched:
             raise ValueError('Weight must be entered in grams or kilograms. "g" or "k" must follow the weight value.')
@@ -148,15 +150,15 @@ class LaptopWithSpecs(Laptop):
         return (
             f'{self.manufacturer} {self.model} {self.screen_size} {self.price}'
             f'\n\tSpecs: {self.category}, {self.screen}, {self.cpu}, {self.ram}, {self.storage}, {self.gpu}, '
-            f'{self.the_os}{"".join((" ", self.os_version)) if self.os_version else ""}, '
+            f'{self.the_os}{"".join((" ", self.os_version)) if self.os_version else ""}, '  # OS and OS version
             f'{self.weight}'
         )
 
 
 def laptops():
-    file = 'laptops.csv'
+    file = 'laptops.csv'  # this file must be in the same directory as THIS python file
     dir_path = os.path.dirname(os.path.abspath(__file__))  # current directory
-    file_path = os.path.join(dir_path, file)
+    file_path = os.path.join(dir_path, file)  # the absolute path to the file
 
     with open(file_path) as f:
         reader = csv.DictReader(f)
