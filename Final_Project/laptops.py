@@ -20,10 +20,18 @@ class Laptop:
 
     @screen_size.setter
     def screen_size(self, value):
-        try:
-            self._screen_size = float(value[:-1])
-        except ValueError:
-            raise ValueError('Screen size must be entered in <13.0"> format.')
+        if isinstance(value, (int, float)):
+            self._screen_size = float(value)
+        else:
+            error = ValueError('Screen size must be entered in <13.0"> format.')
+
+            if value[-1] != '"':
+                raise error
+
+            try:
+                self._screen_size = float(value[:-1])
+            except ValueError:
+                raise error
 
     @property
     def price(self):
@@ -31,10 +39,13 @@ class Laptop:
 
     @price.setter
     def price(self, value):
-        try:
-            self._price = float(value.replace(',', '.'))
-        except ValueError:
-            raise ValueError('Price must be entered as a number.')
+        if isinstance(value, (int, float)):
+            self._price = float(value)
+        else:
+            try:
+                self._price = float(value.replace(',', '.'))
+            except ValueError:
+                raise ValueError('Price must be entered in euros as a number (without letters or characters.')
 
     def __repr__(self):
         return f'{self.manufacturer} {self.model} {self.screen_size} {self.price}'
@@ -61,25 +72,47 @@ class LaptopWithSpecs(Laptop):
 
     @property
     def ram(self):
-        return f'{self._ram}GB'
+        unit = 'GB'
+
+        if self._ram < 1:
+            unit = 'MB'
+            value = self._ram * 1024
+        else:
+            value = self._ram
+
+        if value % 1 == 0:
+            value = int(value)
+
+        return f'{value}{unit}'
 
     @ram.setter
     def ram(self, value):
-        try:
-            self._ram = int(value[:-2])
-        except ValueError:
-            raise ValueError('RAM must be entered in <16GB> format.')
+
+        pattern = r'\d+(.\d+)?[gG]'
+        value = value.replace(' ', '').replace(',', '.')
+
+        matched = re.search(pattern, value)
+
+        if not matched:
+            raise ValueError('RAM must be entered in Gigabytes. "G" must follow the RAM value.'
+                             '\n\t\t\te.g 512MB must be entered as 0.5GB')
+
+        self._ram = float(matched[0][:-1])  # float, in case value is not a whole number
 
     @property
     def weight(self):
         unit = 'kg'
-        div = 1
 
         if self._weight < 1:
             unit = 'gr'
-            div = 1000
+            value = self._weight * 1000
+        else:
+            value = self._weight
 
-        return f'{self._weight / div}{unit}'
+        if value % 1 == 0:
+            value = int(value)
+
+        return f'{value}{unit}'
 
     @weight.setter
     def weight(self, value):
@@ -90,7 +123,7 @@ class LaptopWithSpecs(Laptop):
         matched = re.search(pattern, value)
 
         if not matched:
-            raise ValueError('Weight must be entered in grams or kilograms. "k" or "g" must follow the weight value.')
+            raise ValueError('Weight must be entered in grams or kilograms. "g" or "k" must follow the weight value.')
 
         if matched[0][-1].lower() == 'g':
             self._weight = float(matched[0][:-1]) / 1000
