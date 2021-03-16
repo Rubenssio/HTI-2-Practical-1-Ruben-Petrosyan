@@ -76,11 +76,10 @@ if __name__ == '__main__':
 
     for lap in laptops():
 
-        # --- finding TOP 5 MOST EXPENSIVE laptops ---
-        top_5_biggest(lap, top_5_expensive, lambda x: x.raw_price)
-
-        # --- finding TOP 5 CHEAPEST laptops ---
-        top_5_smallest(lap, top_5_cheapest, lambda x: x.raw_price)
+        top_5_biggest(lap, top_5_expensive, lambda x: x.raw_price)  # finding TOP 5 MOST EXPENSIVE laptops
+        top_5_smallest(lap, top_5_cheapest, lambda x: x.raw_price)  # finding TOP 5 CHEAPEST laptops
+        top_5_biggest(lap, top_5_heaviest, lambda x: x.raw_weight)  # finding TOP 5 HEAVIEST laptops
+        top_5_biggest(lap, top_5_rams, lambda x: x.raw_ram)  # finding TOP 5 laptops with the BIGGEST RAMs
 
         # --- finding number of laptops for each OS ---
         current_lap_os = lap.the_os.lower().replace(' ', '')
@@ -88,12 +87,6 @@ if __name__ == '__main__':
             laptop_oss[current_lap_os] = 1
         else:
             laptop_oss[current_lap_os] += 1
-
-        # --- finding TOP 5 HEAVIEST laptops ---
-        top_5_biggest(lap, top_5_heaviest, lambda x: x.raw_weight)
-
-        # --- finding TOP 5 laptops with the BIGGEST RAMs ---
-        top_5_biggest(lap, top_5_rams, lambda x: x.raw_ram)
 
         # --- finding number of laptops for EACH RAM SIZE ---
         current_ram = lap.raw_ram
