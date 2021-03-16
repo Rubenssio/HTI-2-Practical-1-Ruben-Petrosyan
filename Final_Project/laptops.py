@@ -31,10 +31,22 @@ def laptops():
 
 
 def top_5_biggest(lap1, t5_list, key):
+    duplicate = False
     smallest_in_t5_list = min(t5_list, key=key)
     if key(lap1) > key(smallest_in_t5_list):
-        t5_list.remove(smallest_in_t5_list)
-        t5_list.append(lap1)
+        for item in t5_list:
+            if (
+                    item.model == lap1.model
+                    and
+                    item.manufacturer == lap1.manufacturer
+                    and
+                    key(item) == key(lap1)
+            ):
+                duplicate = True
+                break
+        if not duplicate:
+            t5_list.remove(smallest_in_t5_list)
+            t5_list.append(lap1)
 
 
 def top_5_smallest(lap1, t5_list, key):
@@ -78,35 +90,10 @@ if __name__ == '__main__':
             laptop_oss[current_lap_os] += 1
 
         # --- finding TOP 5 HEAVIEST laptops ---
-        swap_please = True
-        lightest_so_far = min(top_5_heaviest, key=lambda x: x.raw_weight)  # lightest in the heavy list
-        if lap.raw_weight > lightest_so_far.raw_weight:
-            for item in top_5_heaviest:
-                if item.model == lap.model:
-                    if item.manufacturer == lap.manufacturer:
-                        swap_please = False
-                        if item.raw_weight < lap.raw_weight:
-                            top_5_heaviest.remove(item)
-                            top_5_heaviest.append(lap)
-            if swap_please:
-                top_5_heaviest.remove(lightest_so_far)
-                top_5_heaviest.append(lap)
-        # top_5_biggest(lap, top_5_heaviest, lambda x: x.raw_weight)
+        top_5_biggest(lap, top_5_heaviest, lambda x: x.raw_weight)
 
         # --- finding TOP 5 laptops with the BIGGEST RAMs ---
-        swap_please = True
-        min_in_rams = min(top_5_rams, key=lambda x: x.raw_ram)  # the smallest ram in the ram's list
-        if lap.raw_ram > min_in_rams.raw_ram:
-            for item in top_5_rams:
-                if item.model == lap.model:
-                    if item.manufacturer == lap.manufacturer:
-                        swap_please = False
-                        if item.raw_ram < lap.raw_ram:
-                            top_5_rams.remove(item)
-                            top_5_rams.append(lap)
-            if swap_please:
-                top_5_rams.remove(min_in_rams)
-                top_5_rams.append(lap)
+        top_5_biggest(lap, top_5_rams, lambda x: x.raw_ram)
 
         # --- finding number of laptops for EACH RAM SIZE ---
         current_ram = lap.raw_ram
