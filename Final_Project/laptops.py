@@ -30,6 +30,20 @@ def laptops():
             )
 
 
+def top_5_biggest(lap1, t5_list, key):
+    smallest_in_t5_list = min(t5_list, key=key)
+    if key(lap1) > key(smallest_in_t5_list):
+        t5_list.remove(smallest_in_t5_list)
+        t5_list.append(lap1)
+
+
+def top_5_smallest(lap1, t5_list, key):
+    biggest_in_t5_list = max(t5_list, key=key)
+    if key(lap1) < key(biggest_in_t5_list):
+        t5_list.remove(biggest_in_t5_list)
+        t5_list.append(lap1)
+
+
 if __name__ == '__main__':
 
     my_iter = laptops()
@@ -50,17 +64,11 @@ if __name__ == '__main__':
 
     for lap in laptops():
 
-        # --- finding the MOST EXPENSIVE laptops ---
-        min_in_exp = min(top_5_expensive, key=lambda x: x.raw_price)  # the cheapest in the most expensive list
-        if lap.raw_price > min_in_exp.raw_price:
-            top_5_expensive.remove(min_in_exp)
-            top_5_expensive.append(lap)
+        # --- finding TOP 5 MOST EXPENSIVE laptops ---
+        top_5_biggest(lap, top_5_expensive, lambda x: x.raw_price)
 
-        # --- finding the CHEAPEST laptops ---
-        max_in_cheap = max(top_5_cheapest, key=lambda x: x.raw_price)  # most expensive in the cheapest list
-        if lap.raw_price < max_in_cheap.raw_price:
-            top_5_cheapest.remove(max_in_cheap)
-            top_5_cheapest.append(lap)
+        # --- finding TOP 5 CHEAPEST laptops ---
+        top_5_smallest(lap, top_5_cheapest, lambda x: x.raw_price)
 
         # --- finding number of laptops for each OS ---
         current_lap_os = lap.the_os.lower().replace(' ', '')
@@ -69,7 +77,7 @@ if __name__ == '__main__':
         else:
             laptop_oss[current_lap_os] += 1
 
-        # --- finding the HEAVIEST laptops ---
+        # --- finding TOP 5 HEAVIEST laptops ---
         swap_please = True
         lightest_so_far = min(top_5_heaviest, key=lambda x: x.raw_weight)  # lightest in the heavy list
         if lap.raw_weight > lightest_so_far.raw_weight:
@@ -83,11 +91,12 @@ if __name__ == '__main__':
             if swap_please:
                 top_5_heaviest.remove(lightest_so_far)
                 top_5_heaviest.append(lap)
+        # top_5_biggest(lap, top_5_heaviest, lambda x: x.raw_weight)
 
-        # --- finding the laptops with the BIGGEST RAMs ---
+        # --- finding TOP 5 laptops with the BIGGEST RAMs ---
         swap_please = True
         min_in_rams = min(top_5_rams, key=lambda x: x.raw_ram)  # the smallest ram in the ram's list
-        if lap.raw_ram > min_in_exp.raw_ram:
+        if lap.raw_ram > min_in_rams.raw_ram:
             for item in top_5_rams:
                 if item.model == lap.model:
                     if item.manufacturer == lap.manufacturer:
