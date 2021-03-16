@@ -57,6 +57,18 @@ def top_5(lap1, t5_list, key, golf_logic=False):
             t5_list.append(lap1)
 
 
+def adding_to_dict(dict1, lap1, key, reformat=False):
+    if reformat:
+        current = key(lap1).lower().replace(' ', '')
+    else:
+        current = key(lap1)
+
+    if current not in dict1:
+        dict1[current] = 1
+    else:
+        dict1[current] += 1
+
+
 if __name__ == '__main__':
 
     my_iter = laptops()
@@ -82,19 +94,9 @@ if __name__ == '__main__':
         top_5(lap, top_5_heaviest, lambda x: x.raw_weight)  # finding TOP 5 HEAVIEST laptops
         top_5(lap, top_5_rams, lambda x: x.raw_ram)  # finding TOP 5 laptops with the BIGGEST RAMs
 
-        # --- finding number of laptops for each OS ---
-        current_lap_os = lap.the_os.lower().replace(' ', '')
-        if current_lap_os not in laptop_oss:
-            laptop_oss[current_lap_os] = 1
-        else:
-            laptop_oss[current_lap_os] += 1
-
-        # --- finding number of laptops for EACH RAM SIZE ---
-        current_ram = lap.raw_ram
-        if current_ram not in laptop_rams:
-            laptop_rams[current_ram] = 1
-        else:
-            laptop_rams[current_ram] += 1
+        adding_to_dict(laptop_oss, lap, lambda x: x.the_os, reformat=True)  # finding number of laptops for each OS
+        adding_to_dict(laptop_rams, lap, lambda x: x.raw_ram)  # finding number of laptops for EACH RAM SIZE
+        adding_to_dict(laptop_brands, lap, lambda x: x.manufacturer)  # finding number of laptops for EACH BRAND
 
         # --- finding number of laptops for EACH SCREEN SIZE range ---
         current_screen_size = lap.raw_screen_size
@@ -107,14 +109,7 @@ if __name__ == '__main__':
         else:
             laptop_sizes['15" and bigger'] += 1
 
-        # --- finding number of laptops for EACH BRAND ---
-        current_brand = lap.manufacturer
-        if current_brand not in laptop_brands:
-            laptop_brands[current_brand] = 1
-        else:
-            laptop_brands[current_brand] += 1
-
-    # the end of 'for lap in laptops()'
+    # Printing the results
 
     top_5_expensive.sort(reverse=True, key=lambda x: x.raw_price)
     print('\n--- TOP 5 Most Expensive Laptops ---')
