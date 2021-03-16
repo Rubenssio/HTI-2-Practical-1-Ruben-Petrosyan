@@ -30,10 +30,17 @@ def laptops():
             )
 
 
-def top_5_biggest(lap1, t5_list, key):
+def top_5(lap1, t5_list, key, golf_logic=False):
     duplicate = False
-    smallest_in_t5_list = min(t5_list, key=key)
-    if key(lap1) > key(smallest_in_t5_list):
+
+    if golf_logic:
+        last_in_list = max(t5_list, key=key)
+        belongs_in_top_5 = key(lap1) < key(last_in_list)
+    else:
+        last_in_list = min(t5_list, key=key)
+        belongs_in_top_5 = key(lap1) > key(last_in_list)
+
+    if belongs_in_top_5:
         for item in t5_list:
             if (
                     item.model == lap1.model
@@ -44,16 +51,10 @@ def top_5_biggest(lap1, t5_list, key):
             ):
                 duplicate = True
                 break
+
         if not duplicate:
-            t5_list.remove(smallest_in_t5_list)
+            t5_list.remove(last_in_list)
             t5_list.append(lap1)
-
-
-def top_5_smallest(lap1, t5_list, key):
-    biggest_in_t5_list = max(t5_list, key=key)
-    if key(lap1) < key(biggest_in_t5_list):
-        t5_list.remove(biggest_in_t5_list)
-        t5_list.append(lap1)
 
 
 if __name__ == '__main__':
@@ -76,10 +77,10 @@ if __name__ == '__main__':
 
     for lap in laptops():
 
-        top_5_biggest(lap, top_5_expensive, lambda x: x.raw_price)  # finding TOP 5 MOST EXPENSIVE laptops
-        top_5_smallest(lap, top_5_cheapest, lambda x: x.raw_price)  # finding TOP 5 CHEAPEST laptops
-        top_5_biggest(lap, top_5_heaviest, lambda x: x.raw_weight)  # finding TOP 5 HEAVIEST laptops
-        top_5_biggest(lap, top_5_rams, lambda x: x.raw_ram)  # finding TOP 5 laptops with the BIGGEST RAMs
+        top_5(lap, top_5_expensive, lambda x: x.raw_price)  # finding TOP 5 MOST EXPENSIVE laptops
+        top_5(lap, top_5_cheapest, lambda x: x.raw_price, golf_logic=True)  # finding TOP 5 CHEAPEST laptops
+        top_5(lap, top_5_heaviest, lambda x: x.raw_weight)  # finding TOP 5 HEAVIEST laptops
+        top_5(lap, top_5_rams, lambda x: x.raw_ram)  # finding TOP 5 laptops with the BIGGEST RAMs
 
         # --- finding number of laptops for each OS ---
         current_lap_os = lap.the_os.lower().replace(' ', '')
