@@ -7,6 +7,8 @@ class Laptop:
 
     Attributes
     ----------
+    model : str
+        The model name without 'unnecessary' info in the parentheses
     raw_screen_size : float
         The screen size in inches without any formatting.
     screen_size : str
@@ -38,6 +40,8 @@ class Laptop:
         """
 
         self.manufacturer = manufacturer
+
+        self._model = None
         self.model = model
 
         self._screen_size = None
@@ -45,6 +49,18 @@ class Laptop:
 
         self._price = None
         self.price = price
+
+    @property
+    def model(self):
+        """str: the model name without 'unnecessary' info in the parentheses
+        The setter is using a regex to get rid of the 'unnecessary' parentheses with it's contents"""
+        return self._model
+
+    @model.setter
+    def model(self, value):
+        pattern = r' \(.*'
+        value = re.sub(pattern, '', value)
+        self._model = value
 
     @property
     def raw_screen_size(self):
