@@ -87,13 +87,34 @@ def print_like_a_table(list_of_laps, value, sort_key, print_key, golf_logic=Fals
     val_len = max(max(map(len, value_list)), len(value) + 2)
 
     hi_lo = 'Lowest' if golf_logic else 'Highest'
-    d = ' | '  # delimiter
+    d = ' |  '  # delimiter
 
-    print(f'\n--- Top 5 Laptops With The {hi_lo} {value}s ---')
-    print(f'{"BRAND":^{br_len}}{d}{"MODEL":^{mod_len}}{d}{value.upper():^{val_len}}')
+    print(f'\n\n*** Top 5 Laptops With The {hi_lo} {value}s ***')
+    print(f'{"BRAND":>{br_len}}{d}{"MODEL":>{mod_len}}{d}{value.upper():>{val_len}}')
 
     for br, mod, val in zip(brand_list, model_list, value_list):
-        print(f'{br:<{br_len}}{d}{mod:<{mod_len}}{d}{val:<{val_len}}')
+        print(f'{br:>{br_len}}{d}{mod:>{mod_len}}{d}{val:>{val_len}}')
+
+
+def print_two_cols(dict1, col1, decoder=lambda x: x):
+    sorted_list = sorted(dict1)  # to print in the alphabetical order
+
+    keys_list = []
+    values_list = []
+
+    for key in sorted_list:  # sorted_list is the sorted list of keys of dict1
+        keys_list.append(decoder(key))
+        values_list.append(dict1[key])
+
+    keys_len = max(max(map(len, keys_list)), len(col1))
+    val_len = max(max(map(len, str(values_list))), len('COUNT'))
+    d = ' : '  # delimiter
+
+    print(f'\n\n*** Number of Laptops For Each {col1} ***')
+    print(f'{col1.upper():>{keys_len}}{d}{"COUNT":>{val_len}}')
+
+    for key, val in zip(keys_list, values_list):
+        print(f'{key:>{keys_len}}{d}{val:>{val_len}}')
 
 
 if __name__ == '__main__':
@@ -111,7 +132,7 @@ if __name__ == '__main__':
     top_5_heaviest = list_of_first_5.copy()
     top_5_rams = list_of_first_5.copy()
     laptop_rams = {}
-    laptop_sizes = {'less than 10"': 0, '10" - 13"': 0, '13" - 15"': 0, '15" and bigger': 0}
+    laptop_sizes = {' less than 10"': 0, '10" - 13"': 0, '13" - 15"': 0, '15" and bigger': 0}
     laptop_brands = {}
 
     for lap in laptops():
@@ -128,7 +149,7 @@ if __name__ == '__main__':
         # --- finding number of laptops for EACH SCREEN SIZE range ---
         current_screen_size = lap.raw_screen_size
         if current_screen_size < 10:
-            laptop_sizes['less than 10"'] += 1
+            laptop_sizes[' less than 10"'] += 1
         elif current_screen_size < 13:
             laptop_sizes['10" - 13"'] += 1
         elif current_screen_size < 15:
@@ -140,28 +161,10 @@ if __name__ == '__main__':
 
     print_like_a_table(top_5_expensive, 'Price', lambda x: x.raw_price, lambda x: x.price)
     print_like_a_table(top_5_cheapest, 'Price', lambda x: x.raw_price, lambda x: x.price, golf_logic=True)
-
-    print('\n--- Number of laptops for each Operating System ---')
-    laptop_oss_keys_sorted_in_list = sorted(laptop_oss)  # to print in alphabetical order
-    for oss in laptop_oss_keys_sorted_in_list:
-        osf = oss.title()  # formatting the oss string
-        if osf[-2:] == 'os':  # if there is 'os' at the end,
-            osf = ' '.join((osf[:-2], 'OS'))  # let's make it uppercase
-        print(f'{osf}: {laptop_oss[oss]}')
-
+    print_two_cols(laptop_oss, "Operating System",
+                   lambda x: ' '.join((x[:-2].title(), 'OS')) if x[-2:] == 'os' else x.title())
     print_like_a_table(top_5_heaviest, 'Weight', lambda x: x.raw_weight, lambda x: x.weight)
     print_like_a_table(top_5_rams, 'RAM', lambda x: x.raw_ram, lambda x: x.ram)
-
-    print('\n--- Number of laptops for each RAM size ---')
-    laptop_ram_keys_sorted_in_list = sorted(laptop_rams)  # to print in a sorted fashion
-    for ram_size in laptop_ram_keys_sorted_in_list:
-        print(f'{LaptopWithSpecs.byte_to_human(ram_size)}: {laptop_rams[ram_size]}')
-
-    print('\n--- Number of laptops for each screen size ---')
-    for size, count in laptop_sizes.items():
-        print(f'{size}: {count}')
-
-    print('\n--- Number of laptops for each brand ---')
-    laptop_brand_keys_sorted_in_list = sorted(laptop_brands)  # to print in a alphabetical order
-    for brand in laptop_brand_keys_sorted_in_list:
-        print(f'{brand}: {laptop_brands[brand]}')
+    print_two_cols(laptop_rams, "RAM size", LaptopWithSpecs.byte_to_human)
+    print_two_cols(laptop_sizes, "Screen Size")
+    print_two_cols(laptop_brands, "Brand")
