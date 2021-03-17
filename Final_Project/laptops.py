@@ -192,9 +192,11 @@ def print_two_cols(dict1, col1, decoder=lambda x: x):
     keys_list = []
     values_list = []
 
+    total = 0
     for key in sorted_list:  # sorted_list is the sorted list of keys of dict1
         keys_list.append(decoder(key))
         values_list.append(dict1[key])
+        total += dict1[key]
 
     keys_len = max(max(map(len, keys_list)), len(col1))
     val_len = max(max(map(len, str(values_list))), len('COUNT'))
@@ -205,6 +207,7 @@ def print_two_cols(dict1, col1, decoder=lambda x: x):
 
     for key, val in zip(keys_list, values_list):
         print(f'{key:>{keys_len}}{d}{val:>{val_len}}')
+    print(f'-- TOTAL COUNT: {total} --')
 
 
 if __name__ == '__main__':
