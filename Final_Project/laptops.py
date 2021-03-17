@@ -69,6 +69,33 @@ def adding_to_dict(dict1, lap1, key, reformat=False):
         dict1[current] += 1
 
 
+def print_like_a_table(list_of_laps, value, sort_key, print_key, golf_logic=False):
+    brand_list = []
+    model_list = []
+    value_list = []
+
+    list_of_laps.sort(key=sort_key, reverse=not golf_logic)
+
+    for item in list_of_laps:
+        brand_list.append(item.manufacturer)
+        model_list.append(item.model)
+        value_list.append(print_key(item))
+
+    # table widths
+    br_len = max(max(map(len, brand_list)), 7)  # len('BRAND') + 2 = 7
+    mod_len = max(max(map(len, model_list)), 7)  # len('MODEL') + 2 = 7
+    val_len = max(max(map(len, value_list)), len(value) + 2)
+
+    hi_lo = 'Lowest' if golf_logic else 'Highest'
+    d = ' | '  # delimiter
+
+    print(f'\n--- Top 5 Laptops With The {hi_lo} {value}s ---')
+    print(f'{"BRAND":^{br_len}}{d}{"MODEL":^{mod_len}}{d}{value.upper():^{val_len}}')
+
+    for br, mod, val in zip(brand_list, model_list, value_list):
+        print(f'{br:<{br_len}}{d}{mod:<{mod_len}}{d}{val:<{val_len}}')
+
+
 if __name__ == '__main__':
 
     my_iter = laptops()
@@ -111,15 +138,8 @@ if __name__ == '__main__':
 
     # Printing the results
 
-    top_5_expensive.sort(reverse=True, key=lambda x: x.raw_price)
-    print('\n--- TOP 5 Most Expensive Laptops ---')
-    for el in top_5_expensive:
-        print(el.manufacturer, el.model, el.price)
-
-    top_5_cheapest.sort(key=lambda x: x.raw_price)
-    print('\n--- TOP 5 Cheapest Laptops ---')
-    for el in top_5_cheapest:
-        print(el.manufacturer, el.model, el.price)
+    print_like_a_table(top_5_expensive, 'Price', lambda x: x.raw_price, lambda x: x.price)
+    print_like_a_table(top_5_cheapest, 'Price', lambda x: x.raw_price, lambda x: x.price, golf_logic=True)
 
     print('\n--- Number of laptops for each Operating System ---')
     laptop_oss_keys_sorted_in_list = sorted(laptop_oss)  # to print in alphabetical order
@@ -129,15 +149,8 @@ if __name__ == '__main__':
             osf = ' '.join((osf[:-2], 'OS'))  # let's make it uppercase
         print(f'{osf}: {laptop_oss[oss]}')
 
-    top_5_heaviest.sort(reverse=True, key=lambda x: x.raw_weight)
-    print('\n--- TOP 5 Heaviest Laptops ---')
-    for el in top_5_heaviest:
-        print(el.manufacturer, el.model, el.weight)
-
-    top_5_rams.sort(reverse=True, key=lambda x: x.raw_ram)
-    print('\n--- TOP 5 laptops with biggest RAMs ---')
-    for el in top_5_rams:
-        print(el.manufacturer, el.model, el.ram)
+    print_like_a_table(top_5_heaviest, 'Weight', lambda x: x.raw_weight, lambda x: x.weight)
+    print_like_a_table(top_5_rams, 'RAM', lambda x: x.raw_ram, lambda x: x.ram)
 
     print('\n--- Number of laptops for each RAM size ---')
     laptop_ram_keys_sorted_in_list = sorted(laptop_rams)  # to print in a sorted fashion
