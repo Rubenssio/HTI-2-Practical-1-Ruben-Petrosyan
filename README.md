@@ -10,6 +10,6 @@ Practice by: **Davit Tovmasyan**
 Office Hours by: **Henry Harutyunyan**
 (*first meetup - Jan.18.2021*)
 
-Այն մարդկանց, ում հասանելի է այս տեքստը, ուսուցողական նկատառումներով նաև թույլ եմ տալիս հետևյալը՝
-օգտագործելով որպես օրինակներ այս repository-ում իմ տեղադրած կոդերը,
-ցույց տալ ուրիշներին թե ինչպես է պետք գրել կոդ կամ թե ինչպես պետք չէ գրել կոդ:
+Whoever can see this, I allow you to use the code in this repository 
+for educational purposes. It can be an example of how the code
+should be written, or how the code shouldn't be written.
