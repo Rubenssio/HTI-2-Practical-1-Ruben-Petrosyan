@@ -1,4 +1,6 @@
 # HTI-2-Practical-1-Ruben-Petrosyan
+These are the classwork and homework assignments during the ACA studies
+
 Student: **Ruben Petrosyan**
 
 Theory by: **Mary Hakobyan**
@@ -9,7 +11,3 @@ Practice by: **Davit Tovmasyan**
 
 Office Hours by: **Henry Harutyunyan**
 (*first meetup - Jan.18.2021*)
-
-Whoever can see this, I allow you to use the code in this repository 
-for educational purposes. It can be an example of how the code
-should be written, or how the code shouldn't be written.
